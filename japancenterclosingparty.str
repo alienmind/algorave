@@ -1,0 +1,170 @@
+//
+// Japan Center Closing Algorave Party
+// (self-taught Strudel.cc tutorial)
+//
+// This is heavily WIP
+// To be delivered somewhere in 2025
+//
+// by @AlienMind 
+//
+
+//
+// Strudel (and TidalCycles!) goes in "cycles"
+// cps = cycles per second
+// A cycle is an abstract unit of time; patterns repeat once per cycle unless you stretch/speed them.
+// BPMs (beats per minute) = cps * 60 * beatsPerCycle
+// In techno we usually go with bars of 4 beats
+// setCps(0.5) → 0.5 cycles per second = 30 cycles per minute.
+// With 4 beats per cycle → 30 × 4 = 120 BPM.
+//
+
+// Tempo 120 bpm in 4 by 4
+setCps(120/60/4)
+
+// "Mini notation"
+// Mininotation is the compact string syntax for writing rhythmic patterns.
+// Instead of writing arrays or long code, you type little tokens in quotes, like:
+// "[sbd]*4"
+// or
+// "c3 c3 c4 c3" (Do (octave 3), Do (octave 3), Do (octave 4), Do (octave 3))
+
+// Some mininotation superpowers
+// ~ = silence
+// [] = group / subpattern
+// *n = repeat n times
+// /n = speed up n times
+// etc!
+
+/*
+
+// Basic mixer constants - we'll use them down the line
+const _KICK_VOL = slider(0.911,0,1)
+const _KICK_DIST = slider(1.051,1,4)
+
+// Basic techno rythm - 4 on the floor
+// sbd is short for soft bass drum
+$ : s("[sbd]*4")
+
+  // let's add some nice distortion, volume adjusted and a visualization
+  // this is picked up from the constants above
+  .dist(_KICK_DIST)  // postgain : pattern
+  .gain(_KICK_VOL)
+  ._scope()
+  // Sidechain kick to orbit 2,3,4
+  .duck("2:3:4").duckattack(.2).duckdepth(.8)
+
+// "Bassic" bassline
+// 
+$ : note("<[c2 c3]*4 [bb1 bb2]*4 [f2 f3]*4 [eb2 eb3]*4>")
+.sound("gm_synth_bass_1")
+
+// With a low-pass filter at 800Hz  
+.lpf(800)
+// Let's duck it under the kick  
+.orbit(2)
+*/
+
+
+
+/********** Real composition begins ***********/
+const KICK_VOL = slider(0.557,0,1)
+const SNARE_VOL = slider(0.579,0,1)
+const KICK_DIST = slider(1.738,1,4)
+const BASS_VOL = slider(0.348,0,1)
+const HIHATS_VOL = slider(0.576,0,1)
+const PADS_VOL = slider(0.884,0,1)
+const LEADS_VOL = slider(0.704,0,1)
+
+// Other modifiers
+const BASS_ENERGY=slider(2.904,0,4)
+
+// Current chord
+const CURRENT_CHORD = 0 // Single chord - stay on it
+const _CURRENT_CHORD = "<0,1,2,3,4,5,6,7,8>" // Go through the progression
+
+// Chord progression
+// We will alternate some of the random patterns across
+const BASS_CHORDS = [
+  "E:phrygian",
+  "Gb:phrygian",
+  "B:phrygian",
+  "E:phrygian",
+  "B:phrygian",
+  "Gb:phrygian",
+  "E:phrygian",
+  "B:phrygian",
+  "B:phrygian"
+]
+const CHORD_PROGRESSION = [
+  "Em",
+  "Gbm",
+  "Bm",
+  "Em",
+  "Bm",
+  "Gbm",
+  "Em",
+  "Bm",
+  "Bm"
+]
+
+const LEAD = n("0 1 2 3").chord(pick(CHORD_PROGRESSION, CURRENT_CHORD))  
+  .voicing()
+  //.rev()
+  .sound("supersaw")
+  .lpf(300)
+  .sustain(0.5).release(0.01).attack(0)
+  .room(0.6)
+  .lpenv(slider(3.71525,1.25,6))
+  .postgain(LEADS_VOL)
+  ._punchcard() // {height:200, width:1670}
+
+// Basic techno rythm - 4 on the floor
+// sbd is short for soft bass drum
+
+const KICK = s("[sbd]*4")
+
+  // let's add some nice distortion, volume adjusted and a visualization
+  .dist(KICK_DIST) // "1:.4")  // postgain : pattern
+  .gain(KICK_VOL)
+  ._scope()
+  // Sidechain kick to orbit 2,3,4
+  .duck("2:3:4").duckattack(.2).duckdepth(.8)
+
+
+// electro snare
+const SNARE = s("[~ sd]*2").bank("RolandTR909").delay(slider(0,0,1))
+  .postgain(SNARE_VOL)
+  ._scope()
+
+// Random 303 bassline - not super random really, occasionally +1 octave
+const BASS = n(irand(1).almostNever(x=>x.add(7)).sub(7).seg(16)).scale(pick(BASS_CHORDS, CURRENT_CHORD))
+  // Make it repeatable
+  .rib(10,4)
+  // Heavy distortion
+  .dist("2:0.3")
+  // Nice tb303 with adjustable energy
+  .s("sawtooth").lpf(200).lpenv(BASS_ENERGY).lpq(12).gain(BASS_VOL)
+  ._pianoroll()
+  // Make it pump with the duck
+  .orbit(2)
+
+// Upbeats only
+const HIHATS = s("[~ hh]*4").delay(slider(0.26,0,1)).gain(HIHATS_VOL)._scope()//}
+
+// Subpad to keep it interesting, detuned, every 2 
+const SUBPAD = s("supersaw").detune(1).rel(5).beat(2,32).slow(2).orbit(2)
+  .fm(slider(3.8,0,5)).fmh(slider(1.04,0,5)).room(1).roomsize(6).gain(PADS_VOL).
+  _scope()
+
+const RISER = s("pulse").orbit(4).seg(16).dec(.1).fm(time).fmh(time)
+
+// Full song stack
+$ : stack(
+  KICK,
+  SNARE,
+  BASS,
+  HIHATS,
+  LEAD,
+  //SUBPAD,
+  //RISER 
+)
