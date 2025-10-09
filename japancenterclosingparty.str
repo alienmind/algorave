@@ -35,16 +35,34 @@ setCps(120/60/4)
 // /n = speed up n times
 // etc!
 
-/*
+_$: note(`<
+[e5 [b4 c5] d5 [c5 b4]]
+[a4 [a4 c5] e5 [d5 c5]]
+[b4 [~ c5] d5 e5]
+[c5 a4 a4 ~]
+[[~ d5] [~ f5] a5 [g5 f5]]
+[e5 [~ c5] e5 [d5 c5]]
+[b4 [b4 c5] d5 e5]
+[c5 a4 a4 ~]
+,
+[[e2 e3]*4]
+[[a2 a3]*4]
+[[g#2 g#3]*2 [e2 e3]*2]
+[a2 a3 a2 a3 a2 a3 b1 c2]
+[[d2 d3]*4]
+[[c2 c3]*4]
+[[b1 b2]*2 [e2 e3]*2]
+[[a1 a2]*4]
+>`)
+
 
 // Basic mixer constants - we'll use them down the line
-const _KICK_VOL = slider(0.911,0,1)
-const _KICK_DIST = slider(1.051,1,4)
+const _KICK_VOL = slider(1,0,1)
+const _KICK_DIST = slider(2.467,1,4)
 
 // Basic techno rythm - 4 on the floor
 // sbd is short for soft bass drum
-$ : s("[sbd]*4")
-
+_$ : s("[sbd]*4")
   // let's add some nice distortion, volume adjusted and a visualization
   // this is picked up from the constants above
   .dist(_KICK_DIST)  // postgain : pattern
@@ -55,32 +73,31 @@ $ : s("[sbd]*4")
 
 // "Bassic" bassline
 // 
-$ : note("<[c2 c3]*4 [bb1 bb2]*4 [f2 f3]*4 [eb2 eb3]*4>")
+_$ : note("<[c2 c3]*4 [bb1 bb2]*4 [f2 f3]*4 [eb2 eb3]*4>")
 .sound("gm_synth_bass_1")
 
 // With a low-pass filter at 800Hz  
 .lpf(800)
 // Let's duck it under the kick  
 .orbit(2)
-*/
 
 
-
-/********** Real composition begins ***********/
-const KICK_VOL = slider(0.557,0,1)
-const SNARE_VOL = slider(0.579,0,1)
-const KICK_DIST = slider(1.738,1,4)
-const BASS_VOL = slider(0.348,0,1)
-const HIHATS_VOL = slider(0.576,0,1)
-const PADS_VOL = slider(0.884,0,1)
-const LEADS_VOL = slider(0.704,0,1)
+//  Real composition begins
+const KICK_VOL = slider(0.745,0,1)
+const SNARE_VOL = slider(0.424,0,1)
+const KICK_DIST = slider(2.368,1,4)
+const BASS_VOL = slider(0.652,0,1)
+const HIHATS_VOL = slider(0.343,0,1)
+const PADS_VOL = slider(0.662,0,1)
+const NOISE_VOL = slider(0.424,0,1)
+const LEADS_VOL = slider(1,0,1)
 
 // Other modifiers
-const BASS_ENERGY=slider(2.904,0,4)
+const BASS_ENERGY=slider(3.78,0,4)
 
 // Current chord
-const CURRENT_CHORD = 0 // Single chord - stay on it
-const _CURRENT_CHORD = "<0,1,2,3,4,5,6,7,8>" // Go through the progression
+const _CURRENT_CHORD = 0 // Single chord - stay on it
+const CURRENT_CHORD = "<0 1 2 3 4 5 6 7 8>/4" // Go through the progression
 
 // Chord progression
 // We will alternate some of the random patterns across
@@ -107,11 +124,11 @@ const CHORD_PROGRESSION = [
   "Bm"
 ]
 
-const LEAD = n("0 1 2 3").chord(pick(CHORD_PROGRESSION, CURRENT_CHORD))  
+const LEAD = n("0 1 2 3 4 5 6 7").chord(pick(CHORD_PROGRESSION, CURRENT_CHORD))  
+  .fast(slider(4,1,4,1))
   .voicing()
-  //.rev()
   .sound("supersaw")
-  .lpf(300)
+  .lpf(slider(1000,0,1000))
   .sustain(0.5).release(0.01).attack(0)
   .room(0.6)
   .lpenv(slider(3.71525,1.25,6))
@@ -149,11 +166,16 @@ const BASS = n(irand(1).almostNever(x=>x.add(7)).sub(7).seg(16)).scale(pick(BASS
   .orbit(2)
 
 // Upbeats only
-const HIHATS = s("[~ hh]*4").delay(slider(0.26,0,1)).gain(HIHATS_VOL)._scope()//}
+const HIHATS = s("[~ hh]*4").delay(slider(1,0,1)).gain(HIHATS_VOL)._scope()//}
 
 // Subpad to keep it interesting, detuned, every 2 
-const SUBPAD = s("supersaw").detune(1).rel(5).beat(2,32).slow(2).orbit(2)
-  .fm(slider(3.8,0,5)).fmh(slider(1.04,0,5)).room(1).roomsize(6).gain(PADS_VOL).
+const SUBPAD =
+  n(0).scale(pick(BASS_CHORDS, CURRENT_CHORD))
+  .s("supersaw")
+  .detune(1)
+  .rel(5).beat(2,16).slow(2)
+  .orbit(2)
+  .fm(slider(1.625,0,5)).fmh(slider(0,0,5)).room(3).roomsize(6).gain(NOISE_VOL).
   _scope()
 
 const RISER = s("pulse").orbit(4).seg(16).dec(.1).fm(time).fmh(time)
@@ -165,6 +187,6 @@ $ : stack(
   BASS,
   HIHATS,
   LEAD,
-  //SUBPAD,
-  //RISER 
+  SUBPAD,
+  RISER 
 )
