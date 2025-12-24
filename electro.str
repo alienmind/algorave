@@ -1,0 +1,38 @@
+setCpm(132/4)
+register('acidenv',(x,pat) => pat.lpf(100)
+  .lpenv(x*5).lps(0.1).lpd(.1).lpq(2)
+)
+
+$: s("sbd!4").duck("2:3").duckdepth(.1).o(3)._scope()
+//let cc = await midin('3- UMC404HD 192k MIDI In')
+
+$: s("hh!16").gain(.2)
+
+$: s("~ ~ hh ~").delay(.5).gain(.6)
+
+$: s("~ cp ~ cp").gain(.2)
+
+$: s("[wt_digital:0,sawtooth]!16")
+  .wt(slider(0))
+  .unison(2)
+  .dec(.16)
+  .diode("2:.4")
+  .gain(.5)
+  .fm(time.mod("<1 _ _ 2>"))
+  .acidenv(slider(0.709)).o(2)._scope()
+$: note("[c4, c3]!16 [c#4, c#3]!16 [c4, c3]!16 [a#3, a#2]!8 [a3, a2]!8")
+  .sound("supersaw")
+  .slow(8)
+  .postgain(2)
+  .room(0.6)
+  .lpf(slider(1915,300,2000))
+  .room(0.4)
+  .postgain(.5)
+  ._punchcard()
+
+$: note("[c4, c3]!16 [c#4, c#3]!16 [c4, c3]!16 [a#3, a#2]!8 [a3, a2]!8").slow(8).midi('3- UMC404HD 192k MIDI Out')
+
+
+//$: note("c a f e").lpf(cc(0).range(0, 1000)).lpq(cc(1).range(0, 10)).sound("sawtooth")
+
+all(x => x.mul(postgain(1.3)))
