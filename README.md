@@ -102,7 +102,8 @@ You can run a local instance of Strudel (e.g. for offline usage) instead of `str
 
 # 🔮 Future Improvements
 
-- [ ] Add easy to pick up music code examples
+- [x] Basic webapp integrated with MCP and Strudel.cc
+- [x] Add easy to pick up music code examples
 - [ ] Connect the chat prompt to an actual LLM (Claude, Gemini or ChatGPT) for smarter code generation
 - [ ] Allow locally hosting an LLM with ollama
 - [ ] Add visuals

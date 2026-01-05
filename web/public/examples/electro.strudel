@@ -1,0 +1,65 @@
+setCpm(132/4)
+
+
+// Bass drum - Kick
+// It will duck the rest of the instruments to avoid interferences
+// (duck + orbits down below)
+$: s("bd!4").dist(slider(2.728,1,4)).duck("2:3:4").duckdepth(.1)
+  .gain(slider(0.223))._scope()
+// Basic drums - slider hi-hats, house downtempo hi-hat, claps
+$: s("hh!16").gain(slider(0.162))
+$: s("~ ~ hh ~").fast(4).delay(.2).gain(slider(0.314))
+$: s("~ sd ~ sd").gain(slider(0.358)) 
+
+// Lead
+// Two oscilators, combining  wave table + sawtooth
+// With longer decays (dec) we control the length of the notes
+// The shorter, the pluckier
+// We add diode distorsion
+// Envelope controls the energy to give it an acid-techno vibe
+// Trancegate provides a density in the pattern
+$: n(irand(2).almostNever(x=>x.add(7)).sub(7).seg(16))  
+  .ribbon(2,16)
+  .scale("c:phrygian")
+  .s("[wt_digital:1,sawtooth]!16")
+  .wt(slider(0.823))
+  .unison(2)
+  .dec(slider(0.4483,.1,1))
+  //.diode("3:.4")  
+  .trancegate(slider(8.92,1,16),3,16)
+  .acidenv(slider(0.729,0,1))
+  .gain(slider(0.64))
+  .o(2)._scope()
+
+// Bass
+_$: note("[c4, c3]!16 [c#4, c#3]!16 [c4, c3]!16 [a#3, a#2]!8 [a3, a2]!8")
+  .sound("supersaw")
+  .slow(8)
+  .gain(slider(0.702))
+  .acidenv(slider(0.5))
+  .o(3)._scope()
+  ._punchcard()
+
+
+// Pad
+_$: note("[c4, c3]!16 [c#4, c#3]!16 [c4, c3]!16 [a#3, a#2]!8 [a3, a2]!8")
+  .sound("supersaw")
+  .slow(8)  
+  .room(0.6)
+  .lpf(slider(2000,300,2000))
+  .room(0.4)
+  .postgain(slider(0.1,.1,1))
+  .o(4)._punchcard()
+
+// Play external midi device
+//$: note("[c4, c3]!16 [c#4, c#3]!16 [c4, c3]!16 [a#3, a#2]!8 [a3, a2]!8").slow(8).midi('3- UMC404HD 192k MIDI Out')
+
+// Await MIDI control channel
+// let cc = await midin('3- UMC404HD 192k MIDI In')
+
+// Control low-pass filter with Midi CC 0
+// Specific CC for knob needs to be manually found out
+// $: note("c a f e").lpf(cc(0).range(0, 1000)).lpq(cc(1).range(0, 10)).sound("sawtooth")
+
+// Master volume
+all(x => x.mul(postgain(slider(1.214,1,2)))) 

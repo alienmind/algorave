@@ -15,8 +15,10 @@
         "docs": "docker-compose run --rm docs",
         "generate-diagram": "mmdc -i doc/architecture.mmd -o doc/architecture.png -t dark -b transparent",
         "sync-docs": "node scripts/sync-docs.js",
+        "sync-examples": "node scripts/sync-examples.js",
         "refresh-docs": "npm run docs && npm run sync-docs",
-        "build": "npm run generate-diagram && npm run docs && npm run sync-docs && npm run build --prefix strudel-mcp-server && npm run build --prefix web"
+        "refresh-examples": "node scripts/sync-examples.js",
+        "build": "npm run generate-diagram && npm run docs && npm run sync-docs && npm run sync-examples && npm run build --prefix strudel-mcp-server && npm run build --prefix web"
     },
     "private": true,
     "devDependencies": {
