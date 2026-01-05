@@ -1,0 +1,67 @@
+version: '3.8'
+
+services:
+  mcp-server:
+    build:
+      context: ./strudel-mcp-server
+      dockerfile: ../docker/mcp-wrapper.Dockerfile
+    container_name: algorave-mcp
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./strudel-mcp-server/patterns:/app/patterns
+      # Mount config if needed, though Dockerfile creates a default one
+    environment:
+      - NODE_ENV=production
+    networks:
+      - algorave_network
+
+  strudel-web:
+    build:
+      context: .
+      dockerfile: docker/strudel.Dockerfile
+    ports:
+      - "4321:4321"
+    volumes:
+      - ./strudel:/app
+      - /app/node_modules
+      - /app/website/node_modules
+    networks:
+      - algorave_network
+    environment:
+      - HOST=0.0.0.0
+
+  web-app:
+    build:
+      context: ./web
+      args:
+        - NEXT_PUBLIC_USE_LOCAL_STRUDEL=${NEXT_PUBLIC_USE_LOCAL_STRUDEL:-false}
+      dockerfile: Dockerfile
+    container_name: algorave-web
+    restart: unless-stopped
+    ports:
+      - "3001:3000"
+
+    depends_on:
+      - mcp-server
+      - strudel-web
+    environment:
+      - MCP_SERVER_HOST=mcp-server
+      - MCP_SERVER_PORT=3000
+    networks:
+      - algorave_network
+
+  docs:
+    image: pandoc/core
+    volumes:
+      - .:/data
+    command: [ "README.md", "-t", "revealjs", "-s", "-o", "doc/presentation.html", "-V", "theme=black", "-V", "revealjs-url=https://unpkg.com/reveal.js", "--slide-level=2", "--css=doc/custom.css" ]
+    # Optional strudel backend (only if requested, commented out for now or minimal)
+    # Optional strudel backend (only if requested, commented out for now or minimal)
+    # strudel-backend:
+    #   ...
+
+networks:
+  algorave_network:
+    driver: bridge

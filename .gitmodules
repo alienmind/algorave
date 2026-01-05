@@ -1,0 +1,9 @@
+[submodule "strudel"]
+	path = strudel
+	url = https://github.com/alienmind/strudel
+[submodule "strudel-scripts"]
+	path = strudel-scripts
+	url = https://github.com/alienmind/strudel-scripts
+[submodule "strudel-mcp-server"]
+	path = strudel-mcp-server
+	url = https://github.com/alienmind/strudel-mcp-server

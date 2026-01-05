@@ -1,0 +1,5 @@
+graph LR
+    User["User Browser"] -- HTTP --> WebApp["Next.js App (3001)"]
+    WebApp -- "TCP:3000" --> MCPServer["MCP Server (Docker)"]
+    MCPServer -- Internal --> StrudelCore["Strudel Logic"]
+    MCPServer -- Internal --> Chromium["Headless Browser"]

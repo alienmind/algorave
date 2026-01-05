@@ -1,0 +1,25 @@
+{
+    "name": "algorave-hub",
+    "version": "1.0.0",
+    "description": "Algorave Central Hub",
+    "scripts": {
+        "postinstall": "npm install --prefix web && npm install --prefix strudel-mcp-server",
+        "start": "npm run dev --prefix web",
+        "start:prod": "npm run start --prefix web",
+        "docker:up": "docker-compose up -d --build",
+        "docker:down": "docker-compose down",
+        "docker:logs": "docker-compose logs -f",
+        "stop": "docker-compose down",
+        "mcp": "docker-compose up -d --build mcp-server",
+        "web": "docker-compose up -d --build web-app",
+        "docs": "docker-compose run --rm docs",
+        "generate-diagram": "mmdc -i doc/architecture.mmd -o doc/architecture.png -t dark -b transparent",
+        "sync-docs": "node scripts/sync-docs.js",
+        "refresh-docs": "npm run docs && npm run sync-docs",
+        "build": "npm run generate-diagram && npm run docs && npm run sync-docs && npm run build --prefix strudel-mcp-server && npm run build --prefix web"
+    },
+    "private": true,
+    "devDependencies": {
+        "@mermaid-js/mermaid-cli": "^11.12.0"
+    }
+}

@@ -1,0 +1,39 @@
+/* Custom Reveal.js Overrides */
+
+:root {
+  --r-main-font-size: 24px;
+}
+
+/* .reveal .slides section {
+  top: 0 !important; Removed to allow centering
+} */
+
+/* Limit Logo Size */
+img[src*="logo.png"] {
+  max-height: 200px !important;
+  width: auto !important;
+}
+
+/* Hide captions */
+.reveal figcaption {
+  display: none !important;
+}
+
+/* Adjust heading sizes */
+.reveal h1 {
+  font-size: 2em;
+}
+
+.reveal h2 {
+  font-size: 1.5em;
+}
+
+.reveal h3 {
+  font-size: 1.25em;
+}
+
+/* Code block size */
+.reveal pre code {
+  font-size: 0.8em;
+  max-height: 500px;
+}
