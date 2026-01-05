@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { generatePattern } from "./actions";
 
 export default function Home() {
@@ -30,7 +30,10 @@ export default function Home() {
           .filter((c: any) => c.type === 'text')
           .map((c: any) => c.text)
           .join('\n');
-        loadCode(textContent);
+
+        // When AI generates, we auto-play
+        setCode(textContent);
+        updatePreview(textContent);
       } else {
         alert("Failed to generate: " + (result.error || "Unknown error"));
       }
@@ -41,10 +44,66 @@ export default function Home() {
     }
   };
 
-  const loadCode = (newCode: string) => {
+  const loadExample = (newCode: string) => {
+    // Only update the editor, do NOT auto-reload iframe
     setCode(newCode);
-    const encoded = encodeURIComponent(newCode);
+  };
+
+  const updatePreview = (codeToRun: string) => {
+    const encoded = encodeURIComponent(codeToRun);
     setStrudelUrl(`${BASE_URL}/?code=${encoded}`);
+  };
+
+  // Ref for textarea to access selection
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const iframeRef = useRef<HTMLIFrameElement>(null);
+  const [copyFeedback, setCopyFeedback] = useState("");
+
+  const handleInsertSelection = () => {
+    const textarea = textareaRef.current;
+    if (!textarea) return;
+
+    const start = textarea.selectionStart;
+    const end = textarea.selectionEnd;
+    const selectedText = textarea.value.substring(start, end);
+
+    if (selectedText) {
+      const textToHandle = `\n${selectedText}\n`;
+
+      // 1. Always copy to clipboard
+      navigator.clipboard.writeText(textToHandle).then(() => {
+        setCopyFeedback("Copied!");
+        setTimeout(() => setCopyFeedback(""), 2000);
+      });
+
+      // 2. Try to insert directly into iframe (Works if Same-Origin)
+      try {
+        const win = iframeRef.current?.contentWindow as any;
+        // Access strudelMirror exposed by Strudel
+        if (win && win.strudelMirror && win.strudelMirror.editor) {
+          const view = win.strudelMirror.editor;
+          const cursor = view.state.selection.main.head;
+          view.dispatch({
+            changes: { from: cursor, insert: textToHandle },
+            selection: { anchor: cursor + textToHandle.length },
+            scrollIntoView: true
+          });
+          // Also give feedback for insertion if successful
+          setCopyFeedback("Inserted!");
+        }
+      } catch (e) {
+        // Cross-origin restriction will trigger this if not on proxy
+        console.log("Auto-insert blocked by CORS (Expected if not using Local Proxy)");
+      }
+    } else {
+      alert("Please select some code to insert.");
+    }
+  };
+
+  const getFullScreenUrl = () => {
+    // Use current code state
+    const encoded = encodeURIComponent(code);
+    return `${BASE_URL}/?code=${encoded}`;
   };
 
   return (
@@ -61,7 +120,7 @@ export default function Home() {
             {examples.map((ex) => (
               <button
                 key={ex.filename}
-                onClick={() => loadCode(ex.content)}
+                onClick={() => loadExample(ex.content)}
                 className="w-full text-left px-3 py-2 rounded hover:bg-gray-800 text-sm mb-1 truncate transition-colors text-gray-400 hover:text-white"
                 title={ex.title}
               >
@@ -140,18 +199,35 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 flex-1 min-h-0">
             <div className="h-full flex flex-col min-h-0">
               <div className="flex justify-between items-center mb-2">
-                <h2 className="text-sm font-bold text-gray-400">CODE PATTERN</h2>
+                <button
+                  onClick={handleInsertSelection}
+                  className="px-3 py-1 bg-green-700 hover:bg-green-600 rounded text-xs text-white transition-colors flex items-center gap-1"
+                  title="Copy selected text to clipboard (wrapped with newlines)"
+                >
+                  <span>📋 Copy Selection</span>
+                </button>
               </div>
               <textarea
+                ref={textareaRef}
                 value={code}
-                readOnly
+                onChange={(e) => setCode(e.target.value)}
                 className="w-full flex-1 p-4 bg-gray-900 font-mono text-sm border border-gray-700 rounded resize-none focus:outline-none text-green-400"
                 placeholder="Generated code will appear here..."
               />
             </div>
             <div className="h-full flex flex-col min-h-0">
               <div className="flex justify-between items-center mb-2">
-                <h2 className="text-sm font-bold text-gray-400">LIVE PREVIEW</h2>
+                <button>
+                  <a
+                    href={getFullScreenUrl()}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="px-3 py-1 bg-green-700 hover:bg-green-600 rounded text-xs text-white transition-colors flex items-center gap-1"
+                    title="Click on the strudel logo for full screen strudel.cc"
+                  >
+                    <span>↗ Open Full Screen</span>
+                  </a>
+                </button>
               </div>
               <iframe
                 src={strudelUrl}

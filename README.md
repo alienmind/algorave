@@ -12,7 +12,7 @@ A central hub for algoraving with Strudel, powered by AI and Model Context Proto
 
 ![Algorave Hub Logo](doc/logo.png)
 
-# 🏗️ Architecture
+# 🏛️ Architecture
 
 ![Project Architecture](doc/architecture.png)
 
@@ -104,6 +104,8 @@ You can run a local instance of Strudel (e.g. for offline usage) instead of `str
 
 - [x] Basic webapp integrated with MCP and Strudel.cc
 - [x] Add easy to pick up music code examples
+- [x] Cross-pane copy & paste functionality
+- [x] Production-ready containerization
 - [ ] Connect the chat prompt to an actual LLM (Claude, Gemini or ChatGPT) for smarter code generation
 - [ ] Allow locally hosting an LLM with ollama
 - [ ] Add visuals
