@@ -1,0 +1,42 @@
+// "Bronski Beat - Smalltown Boy Cover"
+// Based on the tutorials at https://strudel.cc/workshop/first-notes/#examples
+// Borrowed from https://strudel.cc/?BVx2BSskV3b1#Ly8gIkJyb25za2kgQmVhdCAtIFNtYWxsdG93biBCb3kgQ292ZXIiCi8vIEJhc2VkIG9uIHRoZSB0dXRvcmlhbHMgYXQgaHR0cHM6Ly9zdHJ1ZGVsLmNjL3dvcmtzaG9wL2ZpcnN0LW5vdGVzLyNleGFtcGxlcwovLyBNYWRlIHRvIHRlYWNoIGtpZHMgU3RydWRlbCBhdCBhIGxvY2FsIHNjaG9vbAoKbGV0IGRydW1zID0gcygiYmQqNCwgW34gPHNkIGNwPl0qMiwgW34gaGhdKjQiKQogIC5iYW5rKCJMaW5uTE0xIikKICAucm9vbShzbGlkZXIoMC4yNSkpCgpsZXQgYmFzc2xpbmUgPSBub3RlKCI8W2MyIGMzXSo0IFtiYjEgYmIyXSo0IFtmMiBmM10qNCBbZWIyIGViM10qND4iKQogIC5zb3VuZCgiZ21fc3ludGhfYmFzc18yIikKICAubHBmKDgwMCkKICAucm9vbShzbGlkZXIoMC4yNSkpCgpsZXQgbGVhZCA9IG4oYDwKW34gMF0gMiBbMCAyXSBbfiAyXQpbfiAwXSAxIFswIDFdIFt%2BIDFdClt%2BIDBdIDMgWzAgM10gW34gM10KW34gMF0gMiBbMCAyXSBbfiAyXQo%2BKjRgKS5zY2FsZSgiQzU6bWlub3IiKQouc291bmQoImhhcnAiKQoubHBmKDIwMDApCi5nYWluKDEuMjUpCi5yb29tKHNsaWRlcigwLjI1KSkKCnN0YWNrKAogIGJhc3NsaW5lLAogIGRydW1zLAogIGFycmFuZ2UoCiAgICBbOCwgbGVhZC5tYXNrKDApXSwKICAgIFsxNiwgbGVhZF0sCiAgICBbOCwgbGVhZC5tYXNrKDApXSwKICApCikKLnRzY29wZSh7CiAgc2NhbGU6IC4yNSwKICBwb3M6IC40LAogIGNvbG9yOiAnbGlnaHRibHVlJywKICBzbWVhcjogMC44NSwKICB0aGlja25lc3M6IDEwLAp9KQoKLy8gQHZlcnNpb24gMS4w
+
+let drums = s("bd*4, [~ <sd cp>]*2, [~ hh]*4")
+  .bank("LinnLM1")
+  .room(slider(0.826))
+
+let bassline = note("<[c2 c3]*4 [bb1 bb2]*4 [f2 f3]*4 [eb2 eb3]*4>")
+  .sound("gm_synth_bass_2")
+  .lpf(800)
+  .room(slider(0.826))
+
+let lead = n(`<
+[~ 0] 2 [0 2] [~ 2]
+[~ 0] 1 [0 1] [~ 1]
+[~ 0] 3 [0 3] [~ 3]
+[~ 0] 2 [0 2] [~ 2]
+>*4`).scale("C5:minor")
+.sound("harp")
+.lpf(2000)
+.gain(1.25)
+.room(slider(1))
+
+stack(
+  bassline,
+  drums,
+  arrange(
+    [8, lead.mask(0)],
+    [16, lead],
+    [8, lead.mask(0)],
+  )
+)
+.tscope({
+  scale: .25,
+  pos: .4,
+  color: 'lightblue',
+  smear: 0.85,
+  thickness: 10,
+})
+
+// @version 1.0
