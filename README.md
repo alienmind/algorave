@@ -20,103 +20,103 @@ I spend a portion of my life in planes so this is something I needed to do anywa
 
 ![Project Architecture](web/public/doc/architecture.png)
 
-- **NGINX Proxy** (Port 8080): The entry point. Routes traffic to the Web App or the local Strudel instance (if enabled).
-- **Web App** (Port 3001): Next.js application acting as the workshop hub. It sends prompts to the MCP server and loads Strudel for playback.
-- **MCP Server** (Port 3000): Host the custom Strudel MCP server instance. Generates music patterns from natural language.
-- **Strudel** (Port 4321): A local instance of the Strudel REPL. Allowed to run offline/airgapped.
-- **Docker**: Orchestrates the entire stack.
+- **Web App**: Next.js (React) front-end with a 4-pane grid layout (Code, Examples, Chat, Player).
+- **Chat**: **Open WebUI** container connecting to LLMs (Cloud or Local) and the local MCP server.
+- **MCP Server**: Custom Strudel MCP Server (bridged via SSE) for music generation logic.
+    > **Why SSE?** The default MCP Protocol uses Stdio (standard input/output), which is difficult to route between Docker containers. We use a lightweight **SSE Bridge** (`sse-bridge.js`) to expose the server over HTTP, allowing Open WebUI to connect easily.
+- **Docker**: Containerized environment for reproducible hybrid deployment.
 
 ## 🚀 Getting Started
 
 **Prerequisites**
 
 - Node.js (v18+)
-- Docker (Optional, for containerized run)
+- Docker & Docker Compose
 
-### Installation
+## Quick Start (Recommended)
+
+We provide a streamlined npm script to handle the **Layered Docker Build** automatically.
 
 ```bash
 npm install
-npm run build
-```
-
-### Running
-
-#### Option 1: Local (Default)
-
-Running locally without docker is possible and faster, but Docker is required for building some of the documentation artifacts.
-
-```bash
 npm start
+# or
+docker-compose up --build
 ```
-This starts the web app at [http://localhost:3001](http://localhost:3001) plus the MCP server running locally on http://localhost:4321
 
-#### Option 2: Docker
+This command will:
+1.  Build the `mcp-base` image from your local source.
+2.  Launch the entire stack on `localhost:3000`.
 
-To run the entire stack with containers:
+## Manual Method
+
+If you prefer running commands manually or need to debug:
 
 ```bash
-npm run docker:up
+# 1. Build the Base Image (Required first!)
+docker-compose build mcp-base
+
+# 2. Launch the Stack
+docker-compose up --build
 ```
 
 ### Stopping
 
-To stop the local running app or the containers:
-
 ```bash
-npm stop
-# or
 npm run docker:down
+# or
+docker-compose down
 ```
 
-## ⚙️ Configuration
+---
 
-**Local Strudel Instance**
+# 🤖 Connecting an AI (Open WebUI)
 
-You can run a local instance of Strudel (e.g. for offline usage) instead of `strudel.cc`.
-This is ideal for airgapped mode
+The chat interface is powered by **Open WebUI**. On first launch, you must complete the setup:
 
-1.  **Enable Local Strudel**:
-    -   **For Local Run**: Create `web/.env` and add:
-        ```bash
-        NEXT_PUBLIC_USE_LOCAL_STRUDEL=true
-        ```
-    -   **For Docker Run**:
-        The `docker-compose.yml` is configured to use `false` (external) by default. To change it, set the environment variable before building:
-        ```bash
-        NEXT_PUBLIC_USE_LOCAL_STRUDEL=true npm run docker:up -- --build
-        ```
-    
-2.  **Access**:
-    -   Web App: http://localhost:3001
-    -   Strudel (Direct): http://localhost:4321
+1.  **Create Admin Account**:
+    -   Go to the chat pane (bottom-left) or open [http://localhost:8080](http://localhost:8080).
+    -   Sign up to create the first admin account (data is stored locally in the `open-webui` volume).
+
+2.  **Connect an LLM (Required)**:
+    -   **Cloud (Gemini, OpenAI, Claude)**:
+        -   Click on your profile icon (bottom-left) -> **Settings** -> **Admin Settings** -> **Connections**.
+        -   Enter your API Key (e.g., `GOOGLE_API_KEY` or `OPENAI_API_KEY`).
+        -   Save and select the model in the new chat dropdown.
+    -   **Local (Ollama/LlamaCpp)**:
+        -   If running Ollama on your host: `http://host.docker.internal:11434`.
+        -   If running in a container: Ensure they share the network.
+
+3.  **Strudel MCP (Pre-configured)**:
+    -   The **Strudel Tool** is already connected via `http://strudel-mcp:3001/sse`.
+    -   It enables the AI to: "Play Music", "Stop", "Get Pattern", etc.
+
+# ⚙️ Configuration
+
+-   **Web App**: [http://localhost:3000](http://localhost:3000)
+-   **Open WebUI**: [http://localhost:8080](http://localhost:8080)
+-   **Strudel Player**: Embedded in the top-right pane.
 
 ## 🎵 Usage
 
-1.  **Start the App** (Local or Docker).
-2.  **Open** [http://localhost:3001](http://localhost:3001).
-3.  **Generate Music**:
-    -   Enter a style (e.g., "techno", "house", "dnb").
-    -   Click "Algorave!".
-    -   Wait for the code to generate and the Strudel player to load.
+1.  **Browse through examples**: Click an example in the sidebar, and manually paste code into the left pane
+2.  **Chat with AI**: Ask it to "Make a dark techno bassline" or "Add a high-hat pattern". Copy and adjust the produced code to the Strudel player to the right.
+3.  **Run Code**: Click the "Play" button in the Strudel pane.
 
 ## 🛠️ Development
 
-- **VS Code DevContainer**: Open this folder in VS Code and click "Reopen in Container" for a configured environment.
-- `npm run docker:up`: Start everything in Docker.
-- `npm start`: Start locally in dev mode.
-- `npm run docs`: Generate this presentation (Reveal.js).
+-   **Frontend (`web/`)**: Next.js 15 application.
+-   **MCP Bridge (`docker/strudel-mcp/`)**: Intermediate layer converting Stdio MCP to SSE.
+-   **Base MCP (`strudel-mcp-server/`)**: Local fork of the official Strudel logic.
 
 ## 🔮 Future Improvements
 
 - [x] Basic webapp integrated with MCP and Strudel.cc
-- [x] Add easy to pick up music code examples
+- [x] Add easy to pick up music code examples (Dynamic Sidebar)
 - [x] Cross-pane copy & paste functionality
-- [x] Containerization
-- [ ] Complete the full LLM stack with an actual LLM integration (Claude, Gemini or ChatGPT) for smarter code generation
-- [ ] Allow locally hosting an LLM with Ollama
-- [ ] Add syntax highlighting to the examples pane
-- [ ] Add visuals?
+- [x] Production-ready containerization (Hybrid Architecture)
+- [x] Connect chat to LLMs via Open WebUI
+- [ ] Add real-time visuals (p5.js / Hydra)
 
 ## Credits
 

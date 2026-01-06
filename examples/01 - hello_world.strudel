@@ -1,0 +1,47 @@
+setcps(1)
+
+/*
+  "hello world" of strudel! 
+  
+  Originally available on https://strudel.cc/?H9xTUaHfloE8
+  http://bit.ly/livecode-art-haus 
+  
+  feel free to comment and uncomment each block
+  change some notes and numbers!
+  only the lowest stack / block of code will run
+
+  if you're on a macbook: 
+    [ command + backslash / ] to comment lines in and out
+    [ option + return ] to run and update code blocks
+    
+*/
+
+s("sd hh")
+
+s("bd hh sd hh")
+
+// stack(
+//   s("<bd bd*2> ~"),
+//   s("~ sd"),
+//   s("~ cp ~ cp"),
+//   s("hh*8?"),
+// )
+
+// stack(
+//   "c4(3,8) e4 f4 <d4 g4>".note(),
+//   "<48 52 55>".note()
+// )
+
+// stack(
+//   "c4 d4 e4 <f4 g4>".note().sound("sawtooth"), 
+//   "<48 52 55>".note().sound("sax").clip(1)
+// )
+
+
+
+/*
+  learn about mini notation, the core logic of this language:
+  https://strudel.cc/learn/mini-notation
+*/
+
+// @version 1.0

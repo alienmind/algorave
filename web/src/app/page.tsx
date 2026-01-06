@@ -1,243 +1,187 @@
-"use client";
+'use client';
 
-import { useState, useEffect, useRef } from "react";
-import { generatePattern } from "./actions";
+import React, { useState, useEffect } from 'react';
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
-export default function Home() {
-  const [prompt, setPrompt] = useState("");
-  const [code, setCode] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-  const useLocal = process.env.NEXT_PUBLIC_USE_LOCAL_STRUDEL === "true";
-  const BASE_URL = useLocal ? "http://localhost:4321" : "https://strudel.cc";
-  const [strudelUrl, setStrudelUrl] = useState(BASE_URL);
+export default function Page() {
+  const [activeCode, setActiveCode] = useState('// Select an example to view code');
+  const [chatUrl, setChatUrl] = useState('http://localhost:8080'); // Open WebUI
+  // Default to a safe starting URL
+  const [playerUrl, setPlayerUrl] = useState('https://strudel.cc/?embed=1&sidebar=0');
+  const [examples, setExamples] = useState<string[]>([]);
 
-  // Examples State
-  const [examples, setExamples] = useState<{ filename: string; title: string; content: string }[]>([]);
-
+  // Fetch examples on mount
   useEffect(() => {
-    fetch('/examples/manifest.json')
+    fetch('/api/examples')
       .then(res => res.json())
-      .then(data => setExamples(data))
+      .then(data => {
+        if (data.files) {
+          setExamples(data.files);
+        }
+      })
       .catch(err => console.error('Failed to load examples:', err));
   }, []);
 
-  const handleGenerate = async (styleToUse: string) => {
-    setIsLoading(true);
-    try {
-      const result = await generatePattern(styleToUse);
-      if (result.success && result.data && (result.data as any).content) {
-        const textContent = (result.data as any).content
-          .filter((c: any) => c.type === 'text')
-          .map((c: any) => c.text)
-          .join('\n');
-
-        // When AI generates, we auto-play
-        setCode(textContent);
-        updatePreview(textContent);
-      } else {
-        alert("Failed to generate: " + (result.error || "Unknown error"));
-      }
-    } catch (e) {
-      alert("Error: " + e);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const loadExample = (newCode: string) => {
-    // Only update the editor, do NOT auto-reload iframe
-    setCode(newCode);
-  };
-
-  const updatePreview = (codeToRun: string) => {
-    const encoded = encodeURIComponent(codeToRun);
-    setStrudelUrl(`${BASE_URL}/?code=${encoded}`);
-  };
-
-  // Ref for textarea to access selection
-  const textareaRef = useRef<HTMLTextAreaElement>(null);
-  const iframeRef = useRef<HTMLIFrameElement>(null);
-  const [copyFeedback, setCopyFeedback] = useState("");
-
-  const handleInsertSelection = () => {
-    const textarea = textareaRef.current;
-    if (!textarea) return;
-
-    const start = textarea.selectionStart;
-    const end = textarea.selectionEnd;
-    const selectedText = textarea.value.substring(start, end);
-
-    if (selectedText) {
-      const textToHandle = `\n${selectedText}\n`;
-
-      // 1. Always copy to clipboard
-      navigator.clipboard.writeText(textToHandle).then(() => {
-        setCopyFeedback("Copied!");
-        setTimeout(() => setCopyFeedback(""), 2000);
-      });
-
-      // 2. Try to insert directly into iframe (Works if Same-Origin)
-      try {
-        const win = iframeRef.current?.contentWindow as any;
-        // Access strudelMirror exposed by Strudel
-        if (win && win.strudelMirror && win.strudelMirror.editor) {
-          const view = win.strudelMirror.editor;
-          const cursor = view.state.selection.main.head;
-          view.dispatch({
-            changes: { from: cursor, insert: textToHandle },
-            selection: { anchor: cursor + textToHandle.length },
-            scrollIntoView: true
-          });
-          // Also give feedback for insertion if successful
-          setCopyFeedback("Inserted!");
-        }
-      } catch (e) {
-        // Cross-origin restriction will trigger this if not on proxy
-        console.log("Auto-insert blocked by CORS (Expected if not using Local Proxy)");
-      }
-    } else {
-      alert("Please select some code to insert.");
-    }
-  };
-
-  const getFullScreenUrl = () => {
-    // Use current code state
-    const encoded = encodeURIComponent(code);
-    return `${BASE_URL}/?code=${encoded}`;
+  // Handle example click
+  const handleExampleClick = (filename: string) => {
+    // 1. Fetch the code content
+    fetch(`/examples/${filename}`)
+      .then(res => res.text())
+      .then(code => {
+        setActiveCode(code);
+      })
+      .catch(err => console.error('Failed to load example code:', err));
   };
 
   return (
-    <main className="flex h-screen bg-black text-white overflow-hidden font-mono">
-      {/* Sidebar - Examples */}
-      <aside className="w-64 border-r border-gray-800 flex flex-col hidden lg:flex bg-gray-950">
-        <div className="flex-1 overflow-y-auto">
-          {/* Examples Section */}
-          <div className="p-4 pb-2">
-            <span className="font-bold text-lg text-gray-200">📂 Examples</span>
-          </div>
+    <div className="flex h-screen w-full bg-black text-white font-sans overflow-hidden">
 
-          <div className="px-2 pb-4">
-            {examples.map((ex) => (
-              <button
-                key={ex.filename}
-                onClick={() => loadExample(ex.content)}
-                className="w-full text-left px-3 py-2 rounded hover:bg-gray-800 text-sm mb-1 truncate transition-colors text-gray-400 hover:text-white"
-                title={ex.title}
-              >
-                {ex.title}
-              </button>
-            ))}
-            <a
-              href="https://github.com/alienmind/algorave/tree/main/examples"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-full text-left px-3 py-2 rounded hover:bg-gray-800 text-sm mb-1 truncate transition-colors text-gray-500 hover:text-white block italic"
-            >
-              More on GitHub ↗
-            </a>
-          </div>
-
-          <div className="border-t border-gray-800 mx-4 my-2"></div>
-
-          {/* Resources Section */}
-          <div className="p-4 pb-2">
-            <span className="font-bold text-lg text-gray-200">📚 Resources</span>
-          </div>
-          <div className="px-2 pb-4">
-            <a href="https://strudel.cc/workshop/getting-started/" target="_blank" rel="noopener noreferrer" className="w-full text-left px-3 py-2 rounded hover:bg-gray-800 text-sm mb-1 truncate transition-colors text-gray-400 hover:text-white block">
-              Official Tutorial ↗
-            </a>
-            <a href="https://www.youtube.com/watch?v=QRJ0xrjLj6A" target="_blank" rel="noopener noreferrer" className="w-full text-left px-3 py-2 rounded hover:bg-gray-800 text-sm mb-1 truncate transition-colors text-gray-400 hover:text-white block">
-              Workshop (YouTube) ↗
-            </a>
-          </div>
-        </div>
-      </aside>
-
-      {/* Main Content */}
-      <div className="flex-1 flex flex-col min-w-0">
-        <div className="z-10 w-full items-center justify-between text-sm lg:flex border-b border-gray-800 p-4">
-          <div className="flex w-full items-center justify-start">
-            <img src="/logo.png" alt="Algorave Hub" className="h-8 w-auto mr-4" />
-            <p className="text-lg font-bold mr-4">Algorave Hub</p>
-          </div>
-          <a href="/presentation.html" target="_blank" rel="noopener noreferrer" className="mt-4 lg:mt-0 text-gray-400 hover:text-white underline whitespace-nowrap">
-            See documentation
-          </a>
+      {/* SECTION A: Left Navbar (Examples & Links) */}
+      <div className="w-64 flex-shrink-0 border-r border-gray-800 bg-gray-900 flex flex-col">
+        <div className="p-4 border-b border-gray-800">
+          <h1 className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-600">
+            Algorave Hub
+          </h1>
         </div>
 
-        <div className="w-full flex flex-col flex-1 min-h-0 p-4">
-          <div className="flex gap-4 mb-4">
-            <input
-              type="text"
-              value={prompt}
-              onChange={(e) => setPrompt(e.target.value)}
-              placeholder="Enter style (e.g. techno, house)"
-              className="flex-1 p-4 rounded bg-gray-900 border border-gray-700 text-white focus:border-purple-500 focus:outline-none"
-            />
-            <button
-              onClick={() => handleGenerate(prompt)}
-              disabled={isLoading || !prompt}
-              className="px-6 py-4 bg-purple-600 rounded hover:bg-purple-700 disabled:opacity-50 font-bold transition-colors"
-            >
-              {isLoading ? "Generaving..." : "Algorave!"}
-            </button>
-          </div>
+        {/* Navigation Content */}
+        <div className="flex-1 overflow-y-auto p-4 space-y-6">
 
-          <div className="flex gap-2 mb-4 flex-wrap">
-            {['techno', 'house', 'dnb', 'ambient', 'jungle'].map(style => (
-              <button
-                key={style}
-                onClick={() => { setPrompt(style); handleGenerate(style); }}
-                className="px-3 py-1 bg-gray-800 rounded hover:bg-gray-700 text-xs border border-gray-700 transition-colors"
-              >
-                {style}
-              </button>
-            ))}
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 flex-1 min-h-0">
-            <div className="h-full flex flex-col min-h-0">
-              <div className="flex justify-between items-center mb-2">
-                <button
-                  onClick={handleInsertSelection}
-                  className="px-3 py-1 bg-green-700 hover:bg-green-600 rounded text-xs text-white transition-colors flex items-center gap-1"
-                  title="Copy selected text to clipboard (wrapped with newlines)"
-                >
-                  <span>📋 Copy Selection</span>
-                </button>
-              </div>
-              <textarea
-                ref={textareaRef}
-                value={code}
-                onChange={(e) => setCode(e.target.value)}
-                className="w-full flex-1 p-4 bg-gray-900 font-mono text-sm border border-gray-700 rounded resize-none focus:outline-none text-green-400"
-                placeholder="Generated code will appear here..."
-              />
-            </div>
-            <div className="h-full flex flex-col min-h-0">
-              <div className="flex justify-between items-center mb-2">
-                <button>
-                  <a
-                    href={getFullScreenUrl()}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="px-3 py-1 bg-green-700 hover:bg-green-600 rounded text-xs text-white transition-colors flex items-center gap-1"
-                    title="Click on the strudel logo for full screen strudel.cc"
+          {/* Examples List */}
+          <div>
+            <h2 className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">
+              Examples
+            </h2>
+            <ul className="space-y-1">
+              {examples.map((file) => (
+                <li key={file}>
+                  <button
+                    onClick={() => handleExampleClick(file)}
+                    className="w-full text-left px-3 py-2 rounded text-sm text-gray-300 hover:bg-gray-800 hover:text-white transition-colors truncate"
+                    title={file}
                   >
-                    <span>↗ Open Full Screen</span>
-                  </a>
-                </button>
-              </div>
-              <iframe
-                src={strudelUrl}
-                className="w-full flex-1 border border-gray-700 rounded bg-white"
-                allow="midi; audio"
-              />
+                    {file}
+                  </button>
+                </li>
+              ))}
+            </ul>
+            <div className="mt-2 pt-2 border-t border-gray-800">
+              <a
+                href="https://github.com/alienmind/algorave/tree/main/examples"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-3 py-1 text-xs text-blue-400 hover:text-blue-300 flex items-center gap-1 transition-colors"
+              >
+                <span>View on GitHub</span>
+                <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
+              </a>
             </div>
           </div>
+
+          {/* Useful Links */}
+          <div>
+            <h2 className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">
+              Useful Links
+            </h2>
+            <ul className="space-y-1">
+              <li>
+                <a
+                  href="https://strudel.cc/workshop/getting-started/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block px-3 py-2 rounded text-sm text-gray-300 hover:bg-gray-800 hover:text-white transition-colors"
+                >
+                  Strudel Workshop
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://strudel.cc/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block px-3 py-2 rounded text-sm text-gray-300 hover:bg-gray-800 hover:text-white transition-colors"
+                >
+                  Official Strudel Site
+                </a>
+              </li>
+            </ul>
+          </div>
+
         </div>
       </div>
-    </main>
+
+      {/* Main Content Area (2x2 Grid) */}
+      <div className="flex-1 flex flex-col min-w-0">
+
+        {/* SECTION B: Upper Box (Code Viewer) */}
+        <div className="h-1/3 border-b border-gray-800 bg-[#1e1e1e] flex flex-col">
+          <div className="px-4 py-2 bg-[#252526] text-xs text-gray-400 border-b border-[#333] flex justify-between items-center">
+            <span>Code Viewer</span>
+            <button
+              className="text-blue-400 hover:text-blue-300 transition-colors"
+              onClick={() => {
+                navigator.clipboard.writeText(activeCode);
+                // Optional visual feedback could go here
+              }}
+            >
+              Copy Code
+            </button>
+          </div>
+          <div className="flex-1 overflow-auto custom-scrollbar">
+            <SyntaxHighlighter
+              language="javascript"
+              style={vscDarkPlus}
+              customStyle={{ margin: 0, padding: '1rem', background: 'transparent', fontSize: '14px' }}
+              showLineNumbers={true}
+            >
+              {activeCode}
+            </SyntaxHighlighter>
+          </div>
+        </div>
+
+        {/* Bottom Split: Chat & Player */}
+        <div className="flex-1 flex min-h-0">
+
+          {/* SECTION C: Open WebUI Chat (Iframe) */}
+          <div className="w-1/2 border-r border-gray-800 flex flex-col bg-gray-900">
+            <div className="px-4 py-2 bg-gray-800 text-xs font-semibold text-gray-400 border-b border-gray-700 flex justify-between items-center">
+              <span>AI COMPOSER (Open WebUI)</span>
+              <input
+                type="text"
+                value={chatUrl}
+                onChange={(e) => setChatUrl(e.target.value)}
+                className="bg-gray-900 border border-gray-700 rounded px-2 py-0.5 text-gray-500 w-48 text-right focus:text-gray-300 focus:outline-none"
+              />
+            </div>
+            <div className="flex-1 relative">
+              <iframe
+                src={chatUrl}
+                className="absolute inset-0 w-full h-full border-0"
+                allow="microphone; camera; clipboard-write"
+                title="AI Chat"
+              />
+            </div>
+          </div>
+
+          {/* SECTION D: Strudel Player (Iframe) */}
+          <div className="w-1/2 flex flex-col bg-black">
+            <div className="px-4 py-2 bg-gray-800 text-xs font-semibold text-gray-400 border-b border-gray-700">
+              <span>LIVE ENVIRONMENT (Strudel)</span>
+            </div>
+            <div className="flex-1 relative bg-black">
+              <iframe
+                src={playerUrl}
+                className="absolute inset-0 w-full h-full border-0"
+                allow="midi; audio; microphone"
+                title="Strudel Player"
+              />
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
   );
 }

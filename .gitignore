@@ -1,3 +1,13 @@
 node_modules
+.DS_Store
 
+# Generated Documentation & Examples
+web/public/doc/
+web/public/examples/
+web/public/presentation.html
 
+# Next.js
+web/.next/
+web/out/
+web/build/
+.next/
