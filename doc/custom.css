@@ -37,3 +37,10 @@ img[src*="logo.png"] {
   font-size: 0.8em;
   max-height: 500px;
 }
+
+/* Center lists relative to slide, but keep content left-aligned */
+.reveal ul,
+.reveal ol {
+  display: inline-block;
+  text-align: left;
+}

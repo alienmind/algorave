@@ -1,20 +1,24 @@
----
-title: Algorave Hub
-author: AlienMind
-date: 2026-01-06
----
-
-# Algorave Hub
-
-A central hub for algoraving with Strudel, powered by AI (Open WebUI) and Model Context Protocol.
-
-[https://github.com/alienmind/algorave](https://github.com/alienmind/algorave)
+# 🛠️ Algorave Hub
 
 ![Algorave Hub Logo](doc/logo.png)
 
-# 🏛️ Architecture
+## Introduction
 
-![Project Architecture](doc/architecture.png)
+This project started as a notebook of [Strudel](https://strudel.cc) code snippets while learning the language and reading through amazing content out there.
+Over time it became a playground of ideas for a [Workshop](WORKSHOP.md) planned to give at some point in 2025/2026
+
+The project is a composite of:
+- A few Strudel code examples either manually composed or ripped off from the web (reference to authors kept)
+- The Strudel player - which is by itself running locally in the browser, via direct integration with the official website (https://strudel.cc) or locally served from a container (for any locally running fork, pinned versions or airgapped music creation)
+- A locally running MCP server from the amazing [strudel-mcp-server](https://github.com/williamzujkowski/strudel-mcp-server)
+- A companion web app for easy picking up examples and integrate everything together
+
+The intention of the project is accelerating learning plus making easier to spin up everything locally for airgapped music production.
+I spend a portion of my life in planes so this is something I needed to do anyway ;-)
+
+## 🏛️ Architecture
+
+![Project Architecture](web/public/doc/architecture.png)
 
 - **Web App**: Next.js (React) front-end with a 4-pane grid layout (Code, Examples, Chat, Player).
 - **Chat**: **Open WebUI** container connecting to LLMs (Cloud or Local) and the local MCP server.
@@ -22,7 +26,7 @@ A central hub for algoraving with Strudel, powered by AI (Open WebUI) and Model 
     > **Why SSE?** The default MCP Protocol uses Stdio (standard input/output), which is difficult to route between Docker containers. We use a lightweight **SSE Bridge** (`sse-bridge.js`) to expose the server over HTTP, allowing Open WebUI to connect easily.
 - **Docker**: Containerized environment for reproducible hybrid deployment.
 
-# 🚀 Getting Started
+## 🚀 Getting Started
 
 **Prerequisites**
 
@@ -56,7 +60,7 @@ docker-compose build mcp-base
 docker-compose up --build
 ```
 
-## Stopping
+### Stopping
 
 ```bash
 npm run docker:down
@@ -93,19 +97,19 @@ The chat interface is powered by **Open WebUI**. On first launch, you must compl
 -   **Open WebUI**: [http://localhost:8080](http://localhost:8080)
 -   **Strudel Player**: Embedded in the top-right pane.
 
-# 🎵 Usage
+## 🎵 Usage
 
 1.  **Browse through examples**: Click an example in the sidebar, and manually paste code into the left pane
 2.  **Chat with AI**: Ask it to "Make a dark techno bassline" or "Add a high-hat pattern". Copy and adjust the produced code to the Strudel player to the right.
 3.  **Run Code**: Click the "Play" button in the Strudel pane.
 
-# 🛠️ Development
+## 🛠️ Development
 
 -   **Frontend (`web/`)**: Next.js 15 application.
 -   **MCP Bridge (`docker/strudel-mcp/`)**: Intermediate layer converting Stdio MCP to SSE.
 -   **Base MCP (`strudel-mcp-server/`)**: Local fork of the official Strudel logic.
 
-# 🔮 Future Improvements
+## 🔮 Future Improvements
 
 - [x] Basic webapp integrated with MCP and Strudel.cc
 - [x] Add easy to pick up music code examples (Dynamic Sidebar)
@@ -114,7 +118,8 @@ The chat interface is powered by **Open WebUI**. On first launch, you must compl
 - [x] Connect chat to LLMs via Open WebUI
 - [ ] Add real-time visuals (p5.js / Hydra)
 
-# Credits
+## Credits
 
 - Strudel: [strudel.cc](https://strudel.cc)
 - Strudel MCP Server: [github.com/williamzujkowski/strudel-mcp-server](https://github.com/williamzujkowski/strudel-mcp-server)
+- The amazing Strudel community out there
