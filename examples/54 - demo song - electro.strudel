@@ -1,11 +1,12 @@
+// Some Dark Electro by AlienMind
+// Feel free to rip-off and cover it ;-)
 setCpm(132/4)
-
 
 // Bass drum - Kick
 // It will duck the rest of the instruments to avoid interferences
 // (duck + orbits down below)
 $: s("bd!4").dist(slider(2.728,1,4)).duck("2:3:4").duckdepth(.1)
-  .gain(slider(0.223))._scope()
+  .gain(slider(0.243))._scope()
 // Basic drums - slider hi-hats, house downtempo hi-hat, claps
 $: s("hh!16").gain(slider(0.162))
 $: s("~ ~ hh ~").fast(4).delay(.2).gain(slider(0.314))
@@ -32,7 +33,7 @@ $: n(irand(2).almostNever(x=>x.add(7)).sub(7).seg(16))
   .o(2)._scope()
 
 // Bass
-_$: note("[c4, c3]!16 [c#4, c#3]!16 [c4, c3]!16 [a#3, a#2]!8 [a3, a2]!8")
+$: note("[c4, c3]!16 [c#4, c#3]!16 [c4, c3]!16 [a#3, a#2]!8 [a3, a2]!8")
   .sound("supersaw")
   .slow(8)
   .gain(slider(0.702))
@@ -42,13 +43,13 @@ _$: note("[c4, c3]!16 [c#4, c#3]!16 [c4, c3]!16 [a#3, a#2]!8 [a3, a2]!8")
 
 
 // Pad
-_$: note("[c4, c3]!16 [c#4, c#3]!16 [c4, c3]!16 [a#3, a#2]!8 [a3, a2]!8")
+$: note("[c4, c3]!16 [c#4, c#3]!16 [c4, c3]!16 [a#3, a#2]!8 [a3, a2]!8")
   .sound("supersaw")
   .slow(8)  
   .room(0.6)
   .lpf(slider(2000,300,2000))
   .room(0.4)
-  .postgain(slider(0.1,.1,1))
+  .postgain(slider(0.6778,.1,1))
   .o(4)._punchcard()
 
 // Play external midi device
