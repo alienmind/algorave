@@ -8,61 +8,63 @@ A 1.5 hour workshop exploring how to create music with code, using [Strudel](htt
 
 ## 📅 Schedule
 
-*   **[10 mins]** Welcome & Quick Setup & Opening Act (Video)
-*   **[10 mins]** Strudel & TidalCycles Theory
-*   **[30 mins]** Hands-on Section (w/ Questions)
-*   **[30 mins]** Share-out!
-*   **[10 mins]** Recap
+*   **[10 mins]** Welcome & Quick Setup
+*   **[20 mins]** **Part 1: The Basics** (Hello World, Simple Beatz, Chords)
+*   **[30 mins]** **Part 2: Exploration** (Advanced Examples & Demo Songs - Self-paced)
+*   **[20 mins]** **Part 3: Creation** (Build your own loops!)
+*   **[10 mins]** **Part 4: JAM!** (Collaborative or Solo freestlye)
 
 ## 🎯 Expectations
 
 **Duration:** 1.5 Hours
 
 **For Learners - What to bring:**
-
-*   Yourself
-*   A laptop (w/ Google Chrome)
-*   Headphones
+*   **Yourself**
+*   **A laptop** (w/ Google Chrome)
+*   **Headphones**
 
 **Learning Objectives:**
-
-*   Create music using Strudel web editor with some help from LLMs + MCP
+*   Create music using Strudel web editor
 *   Play around with music vibe coding
 *   Overcome frustration of making music :)))))))
-*   Even if it sounds like shit it will be fun.
 
 ## ⚡ Quick Setup
 
-Get up and running in minutes:
-
-*   **Option A: Cloud (Easiest)**
-    [Fork the repo](https://github.com/alienmind/algorave/fork) and open in a GitHub Codespace.
-*   **Option B: Local Docker**
-    Install docker desktop and npm
-
-
-Then run `npm run docker:up`
+*   **Cloud (Easiest)**: [Fork the repo](https://github.com/alienmind/algorave/fork) and open in GitHub Codespace.
+*   **Local**: Run `npm run docker:up`.
 
 ## 📚 Class Links
 
-### Workshop Main Links
-*   [Strudel Site](https://strudel.cc)
-*   **Workshop!** - Quick way to get a birds-eye-view of what you can do w/ Strudel
+### Part 1: The Basics
+(Follow along with the instructor)
+1.  **Hello World** (`01`) - Making your first sound.
+2.  **Simple Beat** (`02`) - Kick, Snare, Hi-hats.
+3.  **Chords** (`03` & `04`) - Harmony and progressions.
+4.  **Scales** (`05`) - Melodic structures.
 
-### Playing along
-Go through the examples on the left pane or in 
+### Part 2: Exploration (Self-Paced)
+Check out the **Advanced Examples** (`10` - `13`) in the sidebar, covering Remixes, Hip Hop, and Orbit.
 
-### Advanced Topics
-*   **Sending MIDI**: Send MIDI from Strudel [MIDI Guide](https://strudel.cc/learn/midi/)
+Then, deconstruct the **Demo Songs** (`50+`):
+*   **Tetris** (`50`)
+*   **Smalltown Boy** (`51`)
+*   **Acid Techno** (`52`)
+*   **EDM / Trance** (`53` - `56`)
 
-## 🌟 Examples & Inspiration
+### Part 3: Creation
+Use what you learned to modify an existing example or start from scratch! 
+*   **Tip**: Use the `01 - hello_world` as a template.
+*   **Tip**: Use the Chat AI to ask for "a drum beat" or "a bassline".
 
-*   **Collaborative Performance**: [Demo](https://strudel.cc/?rH0YggRYDrIw) | [Video](https://vimeo.com/user83351589)
-*   **Frank Ocean Song**: [Link](https://strudel.tidalcycles.org/?oxcZRRihYt6D)
-*   **DJ_Dave - Array - Lil Data Remix**: https://strudel.cc/?mTeJt_ICoPrw
-*   **Cowrave**: [Link](https://strudel.cc/?HNLRK5hZCBab)
+### Part 4: Jam
+Let's make some noise together!
+
 
 ## 🔗 Additional Resources
+
+*   **Intro Video**: [Video](https://vimeo.com/user83351589)
 *   [Some Workshop Materials borrowed from livecode-art-haus](http://bit.ly/livecode-art-haus)
 *   [Strudel Source Code](https://codeberg.org/uzu/strudel)
 *   [Sound from Scratch (Article)](https://ciechanow.ski/sound/)
+
+

@@ -1,0 +1,80 @@
+// "hello world" of strudel! 
+//
+// feel free to comment and uncomment each block
+// change some notes and numbers!
+// only the lowest stack / block of code will run
+//
+// If you're on PC
+//   [ ctrl + shift + backslash / ] to comment lines in and out
+//   [ ctrl + return ] to run and update code blocks
+//    
+// If you're on a macbook: 
+//   [ command + backslash / ] to comment lines in and out
+//   [ option + return ] to run and update code blocks
+//  
+// Learn about mini notation, the core logic of this language:
+// https://strudel.cc/learn/mini-notation
+//
+// Feel free to add $: to the beginning of each pattern to produce a complete cacophony!
+//
+// Borrowed from http://bit.ly/livecode-art-haus
+// Originally available on https://strudel.cc/?yS3HYqqeyM2i
+
+// One cycle per second
+setcps(1)
+
+
+// s() plays a sample. There are lots of samples available, click on "learn" -> sounds!
+
+// Drums - bd means bass drum (kick!), sd means snare drum
+
+s("bd sd")
+
+// hh means hi-hats
+
+// s("bd hh sd hh")
+
+// Stacks allow to multiple lines of instruments playing in parallel
+// Notice the comma character!
+// ~ means silence, *2 means speeding up, /2 slowing down, etc
+// ? adds some randomness
+
+// stack(
+//   s("<bd bd*2> ~"),
+//   s("~ cp ~ cp"),
+//   s("hh*8? bd"),
+// )
+
+// When an instrument is prepended with :N, means we are choosing one out of multiple sounds for
+// that patch
+// Struct comes handy with alternating patterns over a sequence
+// Masking allows to avoid a sound over some steps of the sequence
+
+// stack(
+//   s("~jazz:1 [jazz jazz:1] jazz:5 jazz"),
+//   s("~hh"),
+//   s("bd sd"),
+//   s("~metal metal:1 metal metal:2").gain("0.7").mask("< 1 0 1 0>"),
+//   s("~metal:2 metal:1 metal:4 metal:1").gain("0.7").mask("<0 1>"),
+//   s("siren").mask("<0 0 0 1>").gain("2.5"), 
+//   s("~bd").struct("1 0 0 0 1 0 1 1 0 1"),
+// )
+  
+// s("bd").struct("1 1 0 1 0 0 1") 
+
+// Musical notes are c,d,e,f,g,a,b followed by an octave number
+// <> alternates notes over sequence repetitions
+
+// stack(
+// "c4!3 e4 f4 <d4 g4>".note(),
+// "<48 52 55>".note()
+// )
+
+
+// stack(
+//    "c4 d4 e4 <f4 g4>".note().sound("sawtooth"), 
+//    "<48 52 55>".note().sound("sax").clip(1)
+// )
+
+
+// @version 1.0

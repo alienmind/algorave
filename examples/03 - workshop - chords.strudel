@@ -1,0 +1,19 @@
+// Playing with chords!
+//
+// Borrowed from http://bit.ly/livecode-art-haus
+// originally available on https://strudel.cc/?nhEpIsA5oD9M
+
+setcps(1)
+stack(
+  s("bd*2,~ [cp,sd]").bank('RolandTR909'),
+  // chords
+  chord("[~ Gm7] ~ [~ Dm7] ~")
+  .dict('lefthand').voicing()
+  .add(note("0,.1"))
+  .s('sawtooth').gain(.8)
+  .cutoff(perlin.range(400,3000).slow(8))
+  .decay(perlin.range(0.05,.2)).sustain(0)
+  .delay(.9).room(1),
+)
+
+// @version 1.0
