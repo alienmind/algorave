@@ -18,11 +18,11 @@ function copyFile(src, dest) {
 if (!fs.existsSync(destPublicDir)) fs.mkdirSync(destPublicDir, { recursive: true });
 if (!fs.existsSync(destDocDir)) fs.mkdirSync(destDocDir, { recursive: true });
 
-// 1. Copy presentation.html to root of public (for cleaner path /presentation.html)
-copyFile(path.join(srcDocDir, 'presentation.html'), path.join(destPublicDir, 'presentation.html'));
+// 1. Ensure directories exist (handled above)
+// presentation.html is now generated directly into destDocDir by the build process.
 
 // 2. Copy images to web/public/doc/ so relative links "doc/image.png" work from presentation.html
-const filesToCopy = ['logo.png', 'architecture.png', 'custom.css'];
+const filesToCopy = ['logo.png', 'custom.css'];
 filesToCopy.forEach(file => {
     copyFile(path.join(srcDocDir, file), path.join(destDocDir, file));
 });

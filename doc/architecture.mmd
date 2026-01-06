@@ -1,5 +1,21 @@
-graph LR
-    User["User Browser"] -- HTTP --> WebApp["Next.js App (3001)"]
-    WebApp -- "TCP:3000" --> MCPServer["MCP Server (Docker)"]
-    MCPServer -- Internal --> StrudelCore["Strudel Logic"]
-    MCPServer -- Internal --> Chromium["Headless Browser"]
+graph TD
+    User((User))
+    
+    subgraph "Docker / Local Host"
+        Proxy[NGINX Proxy<br/>:8080]
+        WebApp[Web App<br/>:3001 host / :3000 int]
+        Strudel[Strudel REPL<br/>:4321]
+        MCP[MCP Server<br/>:3000]
+    end
+
+    User -->|http://localhost:8080| Proxy
+    Proxy -->|/| WebApp
+    Proxy -->|/strudel/| Strudel
+    WebApp -->|Generate Pattern| MCP
+    MCP -->|Strudel Code| WebApp
+    WebApp -->|Load Code| Strudel
+
+    style Proxy fill:#e1d5e7,stroke:#9673a6,color:#000
+    style WebApp fill:#dae8fc,stroke:#6c8ebf,color:#000
+    style Strudel fill:#d5e8d4,stroke:#82b366,color:#000
+    style MCP fill:#f8cecc,stroke:#b85450,color:#000
