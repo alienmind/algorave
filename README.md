@@ -4,8 +4,8 @@
 
 ## Introduction
 
-This project started as a notebook of ![Strudel](https://strudel.cc) code snippets while learning the language and reading through amazing content out there.
-Over time it became a playground of ideas for a ![Workshop](WORKSHOP.md) planned to give at some point in 2025/2026
+This project started as a notebook of [Strudel](https://strudel.cc) code snippets while learning the language and reading through amazing content out there.
+Over time it became a playground of ideas for a [Workshop](WORKSHOP.md) planned to give at some point in 2025/2026
 
 The project is a composite of:
 - A few Strudel code examples either manually composed or ripped off from the web (reference to authors kept)
@@ -20,11 +20,11 @@ I spend a portion of my life in planes so this is something I needed to do anywa
 
 ![Project Architecture](doc/architecture.png)
 
-- **Web App**: Next.js front-end + back-end for prompts and playback (served locally or via Docker)
-- **NGINX Proxy**: NGINX proxy for routing requests to the correct service (served locally or via Docker)
-- **MCP Server**: Williamzujkowski's Strudel MCP Server for music generation logic (served locally or via Docker)
-- **Strudel**: Strudel player (served locally or via Docker)
-- **Docker**: Used as part of the documentation pipeline or to serve the whole stack
+- **NGINX Proxy** (Port 8080): The entry point. Routes traffic to the Web App or the local Strudel instance, enabling a unified efficient experience.
+- **Web App** (Port 3001): Next.js application acting as the workshop hub. It sends prompts to the MCP server and loads Strudel for playback.
+- **MCP Server** (Port 3000): Host the custom Strudel MCP logic. Generates music patterns from natural language.
+- **Strudel** (Port 4321): A local instance of the Strudel REPL. Allowed to run offline/airgapped.
+- **Docker**: Orchestrates the entire stack for easy "one command" setup.
 
 ## 🚀 Getting Started
 
