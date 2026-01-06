@@ -9,7 +9,7 @@
         "docker:up": "npm run docker:build-base && docker-compose up --build",
         "docker:down": "docker-compose down",
         "docs": "docker-compose run --rm docs",
-        "generate-diagram": "mmdc -i doc/architecture.mmd -o doc/architecture.png -t dark -b transparent",
+        "generate-diagram": "mmdc -i doc/architecture.mmd -o web/public/doc/architecture.png -t dark -b transparent",
         "sync-docs": "node scripts/sync-docs.js",
         "sync-examples": "node scripts/sync-examples.js",
         "refresh-docs": "npm run docs && npm run sync-docs",
