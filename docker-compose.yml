@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   mcp-server:
     build:
@@ -78,7 +76,7 @@ services:
     image: pandoc/core
     volumes:
       - .:/data
-    command: [ "README.md", "-t", "revealjs", "-s", "-o", "doc/presentation.html", "-V", "theme=black", "-V", "revealjs-url=https://unpkg.com/reveal.js", "--slide-level=2", "--css=doc/custom.css" ]
+    command: [ "WORKSHOP.md", "-t", "revealjs", "-s", "-o", "web/public/presentation.html", "-V", "theme=black", "-V", "revealjs-url=https://unpkg.com/reveal.js", "--slide-level=2", "--css=doc/custom.css" ]
     # Optional strudel backend (only if requested, commented out for now or minimal)
     # Optional strudel backend (only if requested, commented out for now or minimal)
     # strudel-backend:
