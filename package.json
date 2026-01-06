@@ -9,7 +9,6 @@
         "docker:up": "docker-compose up -d --build",
         "docker:down": "docker-compose down",
         "docker:logs": "docker-compose logs -f",
-        "stop": "docker-compose down",
         "mcp": "docker-compose up -d --build mcp-server",
         "web": "docker-compose up -d --build web-app",
         "build-docs": "node scripts/sync-docs.js && mmdc -i doc/architecture.mmd -o web/public/doc/architecture.png -t dark -b transparent && docker-compose run --rm docs && node scripts/sync-examples.js",
