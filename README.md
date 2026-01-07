@@ -99,9 +99,9 @@ The chat interface is powered by **Open WebUI**. On first launch, you must compl
 
 ## 🎵 Usage
 
-1.  **Browse through examples**: Click an example in the sidebar, and manually paste code into the left pane
-2.  **Chat with AI**: Ask it to "Make a dark techno bassline" or "Add a high-hat pattern". Copy and adjust the produced code to the Strudel player to the right.
-3.  **Run Code**: Click the "Play" button in the Strudel pane.
+1.  **Browse through examples**: Click an example in the sidebar, and manually paste code into the Strudel player.
+2.  **Chat with AI**: Ask it to "Make a dark techno bassline" or "Add a high-hat pattern". Copy and adjust the produced code to the Strudel player.
+3.  **Run Code**: Click the "Play" button in the Strudel player.
 
 ## 🛠️ Development
 
@@ -116,6 +116,8 @@ The chat interface is powered by **Open WebUI**. On first launch, you must compl
 - [x] Cross-pane copy & paste functionality
 - [x] Production-ready containerization (Hybrid Architecture)
 - [x] Connect chat to LLMs via Open WebUI
+- [ ] Automagically paste the code into strudel player
+- [ ] Add magical buttons that produce prompts to the LLM running on OpenWebUI
 - [ ] Add real-time visuals (p5.js / Hydra)
 
 ## Credits
