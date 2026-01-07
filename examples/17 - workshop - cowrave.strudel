@@ -1,8 +1,9 @@
-// Borrowed from http://bit.ly/livecode-art-haus , originally available on https://strudel.cc/?HNLRK5hZCBab
 typeof setDefaultVoicings !== 'undefined' && setDefaultVoicings('legacy') // https://github.com/tidalcycles/strudel/pull/967
 // "Cowrave"
 // @license CC BY-NC-SA 4.0 https://creativecommons.org/licenses/by-nc-sa/4.0/
 // cowbell by Felix Boehme – otherwise mostly "Caverave" @by Felix Roos
+// Borrowed from http://bit.ly/livecode-art-haus , originally available on https://strudel.cc/?HNLRK5hZCBab
+
 setcps(1)
 
 const keys = x => x.s('sawtooth').cutoff(1200).gain(.5)
