@@ -6,7 +6,7 @@
         "postinstall": "npm install --prefix web && npm install --prefix strudel-mcp-server",
         "start": "npm run docker:up",
         "stop": "npm run docker:down",
-        "docker:build-base": "docker-compose build mcp-base",
+        "docker:build-base": "docker build -t algorave/mcp-base:latest -f strudel-mcp-server/Dockerfile strudel-mcp-server",
         "docker:up": "npm run docker:build-base && docker-compose up --build",
         "docker:down": "docker-compose down",
         "docs": "docker-compose run --rm docs",

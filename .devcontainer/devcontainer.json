@@ -12,7 +12,9 @@
 	// Forward web app and MCP server ports
 	"forwardPorts": [
 		3001,
-		3000
+		3000,
+		8080,
+		4321
 	],
 	// Helper extensions
 	"customizations": {
@@ -23,6 +25,6 @@
 			]
 		}
 	},
-	// Install project dependencies
-	"postCreateCommand": "npm install && cd web && npm install"
+	// Install project dependencies and init submodules
+	"postCreateCommand": "git submodule update --init --recursive && npm install && cd web && npm install && cd .. && cp -av .env.example .env"
 }
