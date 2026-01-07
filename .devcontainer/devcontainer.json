@@ -24,5 +24,5 @@
 		}
 	},
 	// Install project dependencies and init submodules
-	"postCreateCommand": "git submodule update --init --recursive && npm install && cd web && npm install"
+	"postCreateCommand": "git submodule update --init --recursive && npm install && cd web && npm install && cd .. && cp -av .env.example .env"
 }
