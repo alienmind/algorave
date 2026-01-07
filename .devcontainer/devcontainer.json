@@ -23,6 +23,6 @@
 			]
 		}
 	},
-	// Install project dependencies
-	"postCreateCommand": "npm install && cd web && npm install"
+	// Install project dependencies and init submodules
+	"postCreateCommand": "git submodule update --init --recursive && npm install && cd web && npm install"
 }
