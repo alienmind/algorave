@@ -2,20 +2,58 @@ graph TD
     User((User))
     
     subgraph "Docker / Local Host"
-        Proxy[NGINX Proxy<br/>:8080]
-        WebApp[Web App<br/>:3001 host / :3000 int]
-        Strudel[Strudel REPL<br/>:4321]
-        MCP[MCP Server<br/>:3000]
+        WebApp["fab:fa-react Web App (Algorave Hub)<br/>Port 3000"]
+        
+        subgraph "Integrations"
+            OpenWebUI["fas:fa-robot Open WebUI<br/>Port 8080"]
+            Strudel["fas:fa-music Strudel REPL<br/>Port 4321 or public<br/>https://strudel.cc"]
+        end
+        
+        subgraph "Backend"
+            MCP["fas:fa-network-wired MCP Bridge<br/>Port 3001"]
+            Headless["fas:fa-terminal Strudel REPL Headless Validation<br/>(Internal)"]
+        end
     end
 
-    User -->|http://localhost:8080| Proxy
-    Proxy -->|/| WebApp
-    Proxy -->|/strudel/| Strudel
-    WebApp -->|Generate Pattern| MCP
-    MCP -->|Strudel Code| WebApp
-    WebApp -->|Load Code| Strudel
+    subgraph "Cloud AI Services"
+        OpenAI["<img src='OPENAI_LOGO_BASE64' width='30' /> OpenAI API"]
+        Gemini["<img src='GEMINI_LOGO_BASE64' width='30' /> Google Gemini"]
+    end
+    
+    subgraph "Local AI"
+         Ollama["fas:fa-server Locally Hosted Models<br/>(e.g. Ollama)"]
+    end
 
-    style Proxy fill:#e1d5e7,stroke:#9673a6,color:#000
-    style WebApp fill:#dae8fc,stroke:#6c8ebf,color:#000
-    style Strudel fill:#d5e8d4,stroke:#82b366,color:#000
-    style MCP fill:#f8cecc,stroke:#b85450,color:#000
+    %% User Interaction
+    User -->|Visits| WebApp
+    
+    %% Web App orchestration
+    WebApp -.->|Embeds| OpenWebUI
+    WebApp -.->|Embeds| Strudel
+
+    %% AI Connections
+    OpenWebUI <-->|HTTPS| OpenAI
+    OpenWebUI <-->|HTTPS| Gemini
+    OpenWebUI <-->|HTTP| Ollama
+
+    %% LAYOUT HACK: Invisible edge to force Local AI below Cloud AI
+    Gemini ~~~ Ollama
+
+    %% MCP Data Flow
+    OpenWebUI <-->|SSE Connection| MCP
+    MCP -->|Validates Code| Headless
+    
+    %% Styling
+    classDef hub fill:#dae8fc,stroke:#6c8ebf,stroke-width:2px,color:#000;
+    classDef integration fill:#e1d5e7,stroke:#9673a6,color:#000;
+    classDef code fill:#d5e8d4,stroke:#82b366,color:#000;
+    classDef mcp fill:#f8cecc,stroke:#b85450,color:#000;
+    classDef cloud fill:#fff,stroke:#333,stroke-dasharray: 5 5,color:#333;
+    classDef local fill:#fff2cc,stroke:#d6b656,stroke-dasharray: 5 5,color:#000;
+
+    class WebApp hub;
+    class OpenWebUI integration;
+    class Strudel code;
+    class MCP mcp;
+    class OpenAI,Gemini cloud;
+    class Ollama local;
