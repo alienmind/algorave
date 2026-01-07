@@ -45,7 +45,7 @@ A 1.5 hour workshop exploring how to create music with code, using [Strudel](htt
 *   Strudel
 *   SonicPi
 
-**Intro Videos**: [Video](https://www.youtube.com/watch?v=s7WbYgOWUWk), [Video](https://vimeo.com/user83351589) and [Video](https://www.youtube.com/watch?v=7qfCeIgtllY&t=750s) and [Video](https://www.youtube.com/watch?v=S2EZqikCIfY)
+**Showcase videos**: [Video](https://strudel.cc/intro/showcase/)
 
 
 ---
