@@ -54,6 +54,11 @@ try {
 
     console.log(`Diagram generated at: ${outputFile}`);
 
+    // Copy to doc/ folder so it's available for GitHub README/WORKSHOP rendering
+    const docOutputFile = path.join(docDir, 'architecture.png');
+    fs.copyFileSync(outputFile, docOutputFile);
+    console.log(`Synced diagram to: ${docOutputFile}`);
+
 } catch (err) {
     console.error('Error generating diagram:', err);
     process.exit(1);
