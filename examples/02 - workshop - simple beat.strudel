@@ -1,0 +1,4 @@
+// Simple beat
+// Borrowed from http://bit.ly/livecode-art-haus
+// originally available on https://strudel.cc/?nhEpIsA5oD9M_CHjWtEOA3oZ
+$: s("[bd <hh oh>]*2").bank("tr909").dec(.4)
