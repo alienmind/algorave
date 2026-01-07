@@ -3,7 +3,7 @@ node_modules
 
 # Generated Documentation & Examples
 # web/public/doc/
-# web/public/examples/
+# web/public/examples/*.strudel
 # web/public/presentation.html
 
 # Next.js

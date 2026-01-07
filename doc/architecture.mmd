@@ -5,7 +5,6 @@ graph TD
         WebApp["fab:fa-react Web App (Algorave Hub)<br/>Port 3000"]
         
         subgraph "Integrations"
-            OpenWebUI["fas:fa-robot Open WebUI<br/>Port 8080"]
             Strudel["fas:fa-music Strudel REPL<br/>Port 4321 or public<br/>https://strudel.cc"]
         end
         
@@ -20,27 +19,18 @@ graph TD
         Gemini["<img src='GEMINI_LOGO_BASE64' width='30' /> Google Gemini"]
     end
     
-    subgraph "Local AI"
-         Ollama["fas:fa-server Locally Hosted Models<br/>(e.g. Ollama)"]
-    end
-
     %% User Interaction
     User -->|Visits| WebApp
     
     %% Web App orchestration
-    WebApp -.->|Embeds| OpenWebUI
     WebApp -.->|Embeds| Strudel
 
     %% AI Connections
-    OpenWebUI <-->|HTTPS| OpenAI
-    OpenWebUI <-->|HTTPS| Gemini
-    OpenWebUI <-->|HTTP| Ollama
-
-    %% LAYOUT HACK: Invisible edge to force Local AI below Cloud AI
-    Gemini ~~~ Ollama
+    WebApp <-->|HTTPS| OpenAI
+    WebApp <-->|HTTPS| Gemini
 
     %% MCP Data Flow
-    OpenWebUI <-->|SSE Connection| MCP
+    WebApp <-->|SSE Connection| MCP
     MCP -->|Validates Code| Headless
     
     %% Styling
@@ -49,11 +39,8 @@ graph TD
     classDef code fill:#d5e8d4,stroke:#82b366,color:#000;
     classDef mcp fill:#f8cecc,stroke:#b85450,color:#000;
     classDef cloud fill:#fff,stroke:#333,stroke-dasharray: 5 5,color:#333;
-    classDef local fill:#fff2cc,stroke:#d6b656,stroke-dasharray: 5 5,color:#000;
 
     class WebApp hub;
-    class OpenWebUI integration;
     class Strudel code;
     class MCP mcp;
     class OpenAI,Gemini cloud;
-    class Ollama local;

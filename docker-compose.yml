@@ -14,30 +14,12 @@ services:
       - ./web/public/presentation.html:/app/public/presentation.html
     environment:
       - NODE_ENV=production
-    networks:
-      - algorave_network
-
-  # 2. The Chat (Open WebUI)
-  chat:
-    image: ghcr.io/open-webui/open-webui:main
-    container_name: algorave-chat
-    restart: always
-    ports:
-      - "8080:8080"
-    env_file:
-      - .env
-    environment:
-      - WEBUI_Q_ORIGINS=http://localhost:3000
-      - MCP_SERVERS={"strudel":"http://strudel-mcp:3001/sse"}
-      - GEMINI_API_KEY=${GEMINI_API_KEY}
+      - MCP_SERVER_HOST=strudel-mcp
+      - MCP_SERVER_PORT=3001
       - OPENAI_API_KEY=${OPENAI_API_KEY}
-    volumes:
-      - open-webui:/app/backend/data
-      - ./openwebui/gemini_pipe.py:/app/backend/data/gemini_pipe.py
+      - GEMINI_API_KEY=${GEMINI_API_KEY}
     networks:
       - algorave_network
-    depends_on:
-      - strudel-mcp
 
   # 3. BASE SERVICE: Builds the vanilla local fork
   # Image Name: algorave/mcp-base:latest
@@ -86,10 +68,6 @@ services:
     volumes:
       - .:/data
     command: [ "WORKSHOP.md", "-t", "revealjs", "-s", "-o", "web/public/presentation.html", "-V", "theme=black", "-V", "revealjs-url=https://unpkg.com/reveal.js", "--slide-level=2", "--css=doc/custom.css" ]
-
-volumes:
-  open-webui:
-
 
 networks:
   algorave_network:
