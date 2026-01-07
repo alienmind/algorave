@@ -8,6 +8,8 @@ services:
       - "3000:3000"
     volumes:
       - ./examples:/app/public/examples
+      - ./web/public/doc:/app/public/doc
+      - ./web/public/presentation.html:/app/public/presentation.html
     environment:
       - NODE_ENV=production
     networks:

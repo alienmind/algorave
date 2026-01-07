@@ -48,6 +48,23 @@ export default function Page() {
         {/* Navigation Content */}
         <div className="flex-1 overflow-y-auto p-4 space-y-6">
 
+          {/* Workshop Section */}
+          <div>
+            <h2 className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">
+              Workshop
+            </h2>
+            <ul className="space-y-1">
+              <li>
+                <a
+                  href="/presentation.html"
+                  className="block px-3 py-2 rounded text-sm text-gray-300 hover:bg-gray-800 hover:text-white transition-colors"
+                >
+                  Slides
+                </a>
+              </li>
+            </ul>
+          </div>
+
           {/* Examples List */}
           <div>
             <h2 className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">
@@ -116,7 +133,7 @@ export default function Page() {
 
         {/* SECTION B: Upper Box (Code Viewer) */}
         <div className="h-1/3 border-b border-gray-800 bg-[#1e1e1e] flex flex-col">
-          <div className="px-4 py-2 bg-[#252526] text-xs text-gray-400 border-b border-[#333] flex justify-between items-center">
+          <div className="px-4 py-2 bg-[#252526] text-xs text-gray-400 border-b border-[#333] flex justify-start items-center gap-4">
             <span>Code Viewer</span>
             <button
               className="text-blue-400 hover:text-blue-300 transition-colors"
