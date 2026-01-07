@@ -1,8 +1,10 @@
 services:
   # 1. The Frontend (Algorave Hub)
-  app:
+  hub:
     build:
-      context: ./web
+      context: .
+      dockerfile: docker/algorave-app/Dockerfile
+    image: algorave/hub:latest
     container_name: algorave-hub
     ports:
       - "3000:3000"
@@ -42,7 +44,7 @@ services:
   mcp-base:
     build:
       context: ./strudel-mcp-server
-      dockerfile: Dockerfile
+      # dockerfile: Dockerfile (default)
     image: algorave/mcp-base:latest
     container_name: mcp-base-builder
     entrypoint: [ "/bin/true" ]
