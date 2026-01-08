@@ -2,7 +2,6 @@ node_modules
 .DS_Store
 
 # Generated Documentation & Examples
-web/public/doc/
 web/public/examples/*.strudel
 # web/public/presentation.html
 

@@ -1,5 +1,6 @@
-// http://strudel.patternclub.org/workshop/site-gallery
-// https://docs.google.com/presentation/d/1LX9bKf7IWJJF1sd8U1bjzbW7lAKGNXlSqZePhhk1NVA/edit?slide=id.g32534a7fab3_0_229#slide=id.g32534a7fab3_0_229
+// Some improvised techno
+// Workshop preparation
+
 const ACID_ENERGY=slider(0.7093,0.1,1)
 const DRUMS_BANK="tr909"
 const KICK_GAIN=slider(1,0.1,1)

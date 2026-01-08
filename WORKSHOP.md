@@ -1,109 +1,99 @@
 # 🌀 Algorave Strudel Workshop
 
-[https://github.com/alienmind/algorave](https://github.com/alienmind/algorave)
-
 ![Algorave Hub Logo](doc/logo.png)
 
-A 1.5 hour workshop exploring how to create music with code, using [Strudel](https://strudel.cc), a browser version of TidalCycles.
+A **1-hour workshop** exploring how to create music with code using Strudel.
 
-## 📅 Schedule
+## 🔗 Links
 
-*   **[10 mins]** Welcome & Intro to the Algorave Culture & Quick Setup
-*   **[20 mins]** **Part 1: The Basics** (Hello World and basic examples)
-*   **[30 mins]** **Part 2: Exploration** (Advanced Examples & Demo Songs - Self-paced)
-*   **[20 mins]** **Part 3: Creation** (Building your own loops!)
-*   **[10 mins]** **Part 4: JAM!** (Contest)
-*   **[1 mins]** **Part 5: Winners announcement!**
+**Strudel**: [https://strudel.cc](https://strudel.cc)
+(install the PWA for best performance)
 
-## 🎯 Expectations
+**Site Gallery / Tutorial**: [https://strudel.patternclub.org/workshop/site-gallery](https://strudel.patternclub.org/workshop/site-gallery)
 
-**For Learners - What to bring:**
-
-*   Yourself
-*   A laptop (w/ Google Chrome)
-*   Headphones
-
-**Learning Objectives:**
-
-*   Create music using Strudel web editor
-*   Play around with music vibe coding
-*   Discover the amazing culture
-
-## 📚 Intro
-
-### What is Algorave?
-
-**Algorithm + Rave = Algorave**
-
-*   Community of artists who are harnessing algorithms to make live and improvised electronic music
-*   Reproducibility meets the unexpected, happy accidents and surprising results during the live performance
-*   Algorave is a worldwide movement! [Article](https://algorave.com/)
-
-**Several frameworks available** (check [Article](https://github.com/zoejane/awesome-music-programming)):
-
-*   TidalCycles
-*   Strudel
-*   SonicPi
-
-**Showcase videos**: [Video](https://strudel.cc/intro/showcase/)
-
+**More Examples!**: [https://github.com/alienmind/algorave/tree/main/examples](https://github.com/alienmind/algorave/tree/main/examples)
 
 ---
 
-### More on the culture
+## 📅 Schedule
 
-[Community Guidelines](https://github.com/Algorave/guidelines/blob/master/README_en.md)
-and
-[Conduct](https://github.com/Algorave/algoraveconduct/blob/main/conduct_en.md)
+*   **[10 mins]** **Introduction**: Culture, Architecture & Context
+*   **[20 mins]** **Part 1: The Basics**: Walkthrough of core functionalities
+*   **[25 mins]** **Part 2: Live Performance & Experimentation**: Follow along or explore freely
+*   **[05 mins]** **Part 3: Volunteers JAM!**: Show us what you got!
 
-"You can’t go wrong with full range speakers and high contrast ratio projector in a small, dark room, preferably with fog/haze."
+---
 
-"We are dedicated to providing a harassment-free experience for everyone, regardless of gender, gender identity and expression, age, class, sexual orientation, disability, physical appearance, body size, race, ethnicity, national origin, immigration status, religion (or lack thereof), or technology choices. This applies both in person or via online media."
+## 📚 Introduction (10 mins)
 
-## ⚡ Quick Setup
+### What is Strudel?
 
-*   **Use my custom hub!**: [AlienMind Algorave Hub](https://algorave.alienmind.eu) - Don't kill my LLM credits pls
-*   **Or build it yourself (BYOK)**: [Fork the repo](https://github.com/alienmind/algorave/fork) and open in GitHub Codespace, or simply run `npm start` locally (requires Docker + npm)
-*   **Simplest solution**: Head to [Strudel Website](https://strudel.cc/) (install PWA for best performance) and follow along with the [Examples](https://github.com/alienmind/algorave/tree/main/examples)
+<div style="display: flex; justify-content: space-around; align-items: center;">
+<img src="doc/strudel.jpg" alt="Strudel Dessert" width="300px">
+<img src="doc/strudel_icon.png" alt="Strudel Icon" width="300px">
+</div>
 
-## AlienMind Algorave Hub Architecture
+*   **Web-based Live Coding**: A port of the legendary **TidalCycles** logic to JavaScript.
+*   **Zero Footprint**: No installation required! [https://strudel.cc](https://strudel.cc)
+(install the PWA for best performance)
+*   **Portability**: Make music anywhere, on any device with a browser.
+*   Open Source and community-driven.
 
-![Architecture](doc/architecture.png)
+---
 
-## Part 1: Basic Examples
+### Why Algorave?
 
-(Follow along with the instructor)
+**Algorithm + Rave = Algorave**
 
-1.  **Hello World** (`01`) - Making your first sound.
-2.  **Simple Beat** (`02`) - Kick, Snare, Hi-hats.
-3.  **Chords** (`03`) - Harmony and progressions.
-4.  **Melodies** (`04` & `05`) - Melodic structures.
+*   **Live Creation**: Music and visuals generated in real-time.
+*   **Transparency**: "Show us your screens" - the code is part of the performance.
+*   **Diverse Tooling**: While we use Strudel, others perform with **TidalCycles**, **SonicPi**, **SuperCollider**, etc.
+*   **Visuals**: Optional! Often coded live using **Hydra**, **P5.js**, or similar (basic visualizations possible in Strudel directly)
 
-## Part 2: Exploration (Self-Paced)
+---
 
-Check out the **Advanced Examples** (`10` - `17`) in the sidebar, follow along the wider tutorial or feel free to explore the internet!
+### Algorave Hub (WIP)
 
-Then, play, deconstruct and remix the **Demo Songs** (`50+`):
+I'm working on a personal WIP application to offer LLM+MCP "vibe" coding.
+[https://github.com/alienmind/algorave](https://github.com/alienmind/algorave)
 
-*   **Tetris** (`50`)
-*   **Smalltown Boy** (`51`)
-*   **Acid Techno / EDM / Trance / Dark Electro** (`52` - `56`)
+Unfortunately not ready yet! We will only use the examples today.
 
-## Parts 3,4 and 5: Creation - Jam - Contest - Winners announcement!
+<img src="doc/architecture.png" alt="Architecture" height="300px">
 
-Use what you learned to modify an existing example or start from scratch!
+---
 
-*   Create: Use any of the examples as a template! Feel free to experiment
-*   **Tip**: Use the Chat AI to ask for "a drum beat" or "a bassline". Strudel-MCP is an amazing tool!
-*   Jam (final part): Round the table! Let's make some noise together! Show us what you've made!
-*   Winners announcement and prize!
+## 📖 Tutorial (20 mins)
 
-## Part 5: Winners!
+> **Follow along here**: [http://strudel.patternclub.org/workshop/site-gallery](http://strudel.patternclub.org/workshop/site-gallery)
 
-Winners announcement and prize!
+1.  **The basics** - Making your first sounds + mininotation
+2.  **Rhythms, Polyrythms**
+3.  **Sound and Synths libraries**
+4.  **Some more advanced examples**
 
-## 🔗 Additional Resources
+---
 
-*   [Some Workshop Materials borrowed from livecode-art-haus](http://bit.ly/livecode-art-haus)
-*   [Strudel Source Code](https://codeberg.org/uzu/strudel)
-*   [Sound from Scratch (Article)](https://ciechanow.ski/sound/)
+## 🎹 Live Performance & Experimentation (25 mins)
+
+Let's perform live on stage!
+
+Remember - ⚡ENERGY: YES! ✨QUALITY: NO! - you’re not looking for a perfect polished track, but something that feels good to you :)
+
+*   **Follow Along**: Feel free to copy what I do and modify it.
+*   **Experiment**: Independently explore the examples, change numbers, *upload new sounds*,break things, and make it your own!
+*   **Resources**: Use the [examples](https://github.com/alienmind/algorave/tree/main/examples) or the [gallery](https://strudel.patternclub.org/workshop/site-gallery), more free sounds available in [freesound.org](https://freesound.org/)
+
+---
+
+## 🙋 Volunteers JAM! (5 mins)
+
+*   **Round the table! Questions?**
+*   Whoever wants to share their example is invited to perform!
+*   Winners announcement!
+
+---
+
+## 🔗 References
+
+Please see [REFERENCES.md](https://github.com/alienmind/algorave/blob/main/REFERENCES.md) for a complete list of links and resources used in this workshop.
