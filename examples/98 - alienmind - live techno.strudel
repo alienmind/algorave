@@ -1,0 +1,32 @@
+// http://strudel.patternclub.org/workshop/site-gallery
+// https://docs.google.com/presentation/d/1LX9bKf7IWJJF1sd8U1bjzbW7lAKGNXlSqZePhhk1NVA/edit?slide=id.g32534a7fab3_0_229#slide=id.g32534a7fab3_0_229
+const ACID_ENERGY=slider(0.7093,0.1,1)
+const DRUMS_BANK="tr909"
+const KICK_GAIN=slider(1,0.1,1)
+const SNARE_GAIN=slider(0.5536,0.1,1)
+const HH_GAIN=slider(0.3502,0.1,1)
+const PAD_GAIN=slider(0.9559,0.1,1)
+const LEAD_GAIN=slider(0.7921,0.1,1)
+
+register('acidenv', (x, pat) => pat.lpf(100)
+  .lpenv(x * 9).lps(.2).lpd(.12).lpq(2)
+)
+
+register('trancegate', (density, seed, length, x) => {
+  return x.struct(rand.mul(density).round().seg(16).rib(seed, length)).fill().clip(.7)
+})
+
+
+$: s("hh!16").bank(DRUMS_BANK).gain(HH_GAIN)._scope()
+$: s("~ sd ~ sd").bank(DRUMS_BANK).gain(SNARE_GAIN)._scope()
+$: s("bd!4").bank(DRUMS_BANK).gain(KICK_GAIN).duck("2").duckattack(.2)._scope()
+
+$bassline: n("0*16").s("sawtooth").acidenv(ACID_ENERGY).o(2).postgain(1)._scope()
+
+
+$lead: n("<0!4 <3 -1>!2 5!2>").scale("c:phrygian").trancegate(5,5,16).s("sawtooth").
+  gain(LEAD_GAIN).o(2)._pianoroll()
+
+
+$pad: chord("Cm").add("<0!4 <3 -1>!2 5!2>").voicing().s("gm_synth_choir").
+  gain(PAD_GAIN).o(2)._pianoroll()
