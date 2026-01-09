@@ -56,7 +56,9 @@ export default function Page() {
             <ul className="space-y-1">
               <li>
                 <a
-                  href="/presentation.html"
+                  href="https://alienmind.github.io/algorave/"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="block px-3 py-2 rounded text-sm text-gray-300 hover:bg-gray-800 hover:text-white transition-colors"
                 >
                   Slides

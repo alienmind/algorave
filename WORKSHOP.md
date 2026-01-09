@@ -13,7 +13,7 @@ A **1-hour workshop** exploring how to create music with code using Strudel.
 
 **More Examples!**: [https://github.com/alienmind/algorave/tree/main/examples](https://github.com/alienmind/algorave/tree/main/examples)
 
-**This presentation**: [https://alienmind.github.io/algorave/presentation.html#/algorave-strudel-workshop](https://alienmind.github.io/algorave/presentation.html#/algorave-strudel-workshop)
+**This presentation**: [https://alienmind.github.io/algorave/#/algorave-strudel-workshop](https://alienmind.github.io/algorave/#/algorave-strudel-workshop)
 
 ---
 
