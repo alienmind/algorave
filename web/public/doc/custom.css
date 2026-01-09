@@ -2,6 +2,11 @@
 
 :root {
   --r-main-font-size: 24px;
+  --r-background-color: #000000;
+}
+
+.reveal {
+  background-color: #000000 !important;
 }
 
 /* .reveal .slides section {
@@ -32,7 +37,12 @@ img[src*="logo.png"] {
   font-size: 1.25em;
 }
 
-/* Code block size */
+/* Code block size and centering */
+.reveal pre {
+  margin: 20px auto !important;
+  box-shadow: none !important;
+}
+
 .reveal pre code {
   font-size: 0.8em;
   max-height: 500px;

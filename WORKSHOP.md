@@ -19,11 +19,11 @@ A **1-hour workshop** exploring how to create music with code using Strudel.
 
 ## 📅 Schedule
 
-*   **[10 mins]** **Introduction**: Culture, Architecture & Context
+*   **[08 mins]** **Introduction**: Culture, Architecture & Context
 *   **[20 mins]** **Part 1: The Basics & Demo**: Walkthrough of core functionalities
-*   **[20 mins]** **Part 2a: For Vibecoders**: If you just wanna play with LLM+MCP (*BYOK!*)
-*   **[20 mins]** **Part 2b: For Livecoders**: If you already know some music
-*   **[05 mins]** **Part 3: Strudel Awards**
+*   **[20 mins]** **Part 2a: Vibecoders track**: If you just wanna play with LLM+MCP (*BYOK!*)
+*   **[20 mins]** **Part 2b: Livecoders track**: If you already know some music
+*   **[02 mins]** **Part 3: Strudel Awards**
 
 ---
 
@@ -85,7 +85,9 @@ Unfortunately not ready yet! - *** Stay tuned for the next workshop! ***
 *   **Raise your hand** ✋ if you already know some music and wanna try livecoding.
 *   **Lower your hand** 👇 if you don't know any music or wanna be part of the vibe coding team.
 
-    <img src="doc/meme.png" alt="Real Coders vs Live Coders" style="align: center">
+<div style="display: flex; justify-content: space-around; align-items: center;">
+  <img src="doc/meme.png" alt="Real Coders vs Live Coders" height="300px">
+</div>
 
 ---
 
@@ -97,21 +99,24 @@ Let's start by setting up an **SSE enabled MCP server**
 *   **Calvin Williamson MCP-Strudel** - [Visit the web site](https://mcp-strudel.mcp.mathplosion.com/strudel/)
 *   **SSE endpoint** - [https://mcp-strudel.mcp.mathplosion.com/sse/](https://mcp-strudel.mcp.mathplosion.com/sse/)
 
+---
 
-### Step 1: Example with Gemini CLI
+### Step 1: Install Gemini CLI (any other LLM will work)
 
 Open your terminal and run:
 
+<div style="display: flex; justify-content: space-around; align-items: center;">
 ```bash
 $ npm install -g gemini-chat-cli
 ```
----
+</div>
+
 ---
 
 ### Step 2: Add MCP Server
 
 Add the server to your configuration (~/.gemini/settings.json)
-
+<div style="display: flex; justify-content: space-around; align-items: center;">
 ```json
 {
   ...
@@ -122,25 +127,26 @@ Add the server to your configuration (~/.gemini/settings.json)
       "trust": true
     }
   }
-
+}
 ```
+</div>
 
 ---
 
 ### Step 3: List Servers & Run
 Open up side by side: [Strudel](https://mcp-strudel.mcp.mathplosion.com/strudel/) and any terminal with Gemini CLI
-
+<div style="display: flex; justify-content: space-around; align-items: center;">
 ```bash
 $ gemini
 ```
+</div>
 <div style="display: flex; justify-content: space-around; align-items: center;">
   <img src="doc/strudel-mcp.png" alt="Strudel MCP" height="300px">
   <img src="doc/gemini.png" alt="Gemini CLI" height="300px">
 </div>
-
 Remember to tell your LLM: "Use session_id: xxxx for Strudel operations" so it can connect to the same MCP server window.
 
-Hint: Try "Write an amazing techno track using Strudel".
+**Try this prompt**: Try "Write an amazing house track using Strudel".
 
 ---
 
@@ -157,7 +163,7 @@ Remember - ⚡ENERGY: YES! ✨QUALITY: NO! - you’re not looking for a perfect 
 
 ---
 
-## 🙋 Volunteers Jam & 🏆 Contest - Who Won?
+## 🙋 Volunteers Jam & 🏆 Contest
 
 Raise your hand if you wanna show what you've made!
 

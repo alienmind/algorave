@@ -128,15 +128,16 @@ href="https://alienmind.github.io/algorave/presentation.html#/algorave-strudel-w
 <section id="schedule" class="slide level2">
 <h2>📅 Schedule</h2>
 <ul>
-<li><strong>[10 mins]</strong> <strong>Introduction</strong>: Culture,
+<li><strong>[08 mins]</strong> <strong>Introduction</strong>: Culture,
 Architecture &amp; Context</li>
 <li><strong>[20 mins]</strong> <strong>Part 1: The Basics &amp;
 Demo</strong>: Walkthrough of core functionalities</li>
-<li><strong>[20 mins]</strong> <strong>Part 2a: For Vibecoders</strong>:
-If you just wanna play with LLM+MCP (<em>BYOK!</em>)</li>
-<li><strong>[20 mins]</strong> <strong>Part 2b: For Livecoders</strong>:
-If you already know some music</li>
-<li><strong>[05 mins]</strong> <strong>Part 3: Strudel
+<li><strong>[20 mins]</strong> <strong>Part 2a: Vibecoders
+track</strong>: If you just wanna play with LLM+MCP
+(<em>BYOK!</em>)</li>
+<li><strong>[20 mins]</strong> <strong>Part 2b: Livecoders
+track</strong>: If you already know some music</li>
+<li><strong>[02 mins]</strong> <strong>Part 3: Strudel
 Awards</strong></li>
 </ul>
 </section>
@@ -208,12 +209,15 @@ mininotation</li>
 
 <h3 id="livecoders-vs-vibecoders">✋ Livecoders vs Vibecoders</h3>
 <ul>
-<li><p><strong>Raise your hand</strong> ✋ if you already know some
-music and wanna try livecoding.</p></li>
-<li><p><strong>Lower your hand</strong> 👇 if you don’t know any music
-or wanna be part of the vibe coding team.</p>
-<p><img src="doc/meme.png" alt="Real Coders vs Live Coders" style="align: center"></p></li>
+<li><strong>Raise your hand</strong> ✋ if you already know some music
+and wanna try livecoding.</li>
+<li><strong>Lower your hand</strong> 👇 if you don’t know any music or
+wanna be part of the vibe coding team.</li>
 </ul>
+<div
+style="display: flex; justify-content: space-around; align-items: center;">
+<p><img src="doc/meme.png" alt="Real Coders vs Live Coders" height="300px"></p>
+</div>
 </section>
 <section id="part-2a-vibecoders-track" class="slide level2">
 <h2>🤖 Part 2a: Vibecoders Track</h2>
@@ -226,13 +230,24 @@ site</a></li>
 <li><strong>SSE endpoint</strong> - <a
 href="https://mcp-strudel.mcp.mathplosion.com/sse/">https://mcp-strudel.mcp.mathplosion.com/sse/</a></li>
 </ul>
-<h3 id="step-1-example-with-gemini-cli">Step 1: Example with Gemini
-CLI</h3>
+</section>
+<section class="slide level2">
+
+<h3 id="step-1-install-gemini-cli-any-other-llm-will-work">Step 1:
+Install Gemini CLI (any other LLM will work)</h3>
 <p>Open your terminal and run:</p>
+<div
+style="display: flex; justify-content: space-around; align-items: center;">
 <div class="sourceCode" id="cb1"><pre
 class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> npm install <span class="at">-g</span> gemini-chat-cli</span></code></pre></div>
+</div>
+</section>
+<section class="slide level2">
+
 <h3 id="step-2-add-mcp-server">Step 2: Add MCP Server</h3>
-<p>Add the server to your configuration (~/.gemini/settings.json)</p>
+Add the server to your configuration (~/.gemini/settings.json)
+<div
+style="display: flex; justify-content: space-around; align-items: center;">
 <div class="sourceCode" id="cb2"><pre
 class="sourceCode json"><code class="sourceCode json"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="er">...</span></span>
@@ -242,16 +257,21 @@ class="sourceCode json"><code class="sourceCode json"><span id="cb2-1"><a href="
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;timeout&quot;</span><span class="fu">:</span> <span class="dv">30000</span><span class="fu">,</span></span>
 <span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;trust&quot;</span><span class="fu">:</span> <span class="kw">true</span></span>
 <span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">}</span></span></code></pre></div>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">}</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+</div>
 </section>
 <section class="slide level2">
 
 <h3 id="step-3-list-servers-run">Step 3: List Servers &amp; Run</h3>
-<p>Open up side by side: <a
+Open up side by side: <a
 href="https://mcp-strudel.mcp.mathplosion.com/strudel/">Strudel</a> and
-any terminal with Gemini CLI</p>
+any terminal with Gemini CLI
+<div
+style="display: flex; justify-content: space-around; align-items: center;">
 <div class="sourceCode" id="cb3"><pre
 class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> gemini</span></code></pre></div>
+</div>
 <div
 style="display: flex; justify-content: space-around; align-items: center;">
 <p><img src="doc/strudel-mcp.png" alt="Strudel MCP" height="300px">
@@ -259,7 +279,8 @@ style="display: flex; justify-content: space-around; align-items: center;">
 </div>
 <p>Remember to tell your LLM: “Use session_id: xxxx for Strudel
 operations” so it can connect to the same MCP server window.</p>
-<p>Hint: Try “Write an amazing techno track using Strudel”.</p>
+<p><strong>Try this prompt</strong>: Try “Write an amazing house track
+using Strudel”.</p>
 </section>
 <section id="part-2b-livecoders-track" class="slide level2">
 <h2>🎹 Part 2b: Livecoders Track</h2>
@@ -279,8 +300,8 @@ href="https://freesound.org/">freesound.org</a></li>
 <p>Remember - ⚡ENERGY: YES! ✨QUALITY: NO! - you’re not looking for a
 perfect polished track, but something that feels good to you :)</p>
 </section>
-<section id="volunteers-jam-contest---who-won" class="slide level2">
-<h2>🙋 Volunteers Jam &amp; 🏆 Contest - Who Won?</h2>
+<section id="volunteers-jam-contest" class="slide level2">
+<h2>🙋 Volunteers Jam &amp; 🏆 Contest</h2>
 <p>Raise your hand if you wanna show what you’ve made!</p>
 </section>
 <section id="references" class="slide level2">
