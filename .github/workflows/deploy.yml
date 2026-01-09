@@ -55,11 +55,14 @@ jobs:
 
       - name: Build Strudel
         working-directory: strudel
-        # We run prebuild (Generate docs etc), then build website with specific base and site
+        env:
+          STRUDEL_SITE: "https://alienmind.github.io"
+          STRUDEL_BASE: "/algorave/strudel/"
+        # We run prebuild (Generate docs etc), then build website
         run: |
           pnpm run prebuild
           cd website
-          pnpm run build -- --site "https://alienmind.github.io" --base "/algorave/strudel"
+          pnpm run build
 
       - name: Prepare Deployment Artifact
         run: |
