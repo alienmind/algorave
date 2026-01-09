@@ -2,11 +2,13 @@ node_modules
 .DS_Store
 
 # Generated Documentation & Examples
+# Generated Documentation & Examples
 web/public/examples/*.strudel
-# web/public/presentation.html
+dist/
 
 # Next.js
 web/.next/
 web/out/
 web/build/
 .next/
+.env

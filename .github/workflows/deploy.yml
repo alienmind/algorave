@@ -28,10 +28,16 @@ jobs:
 
       - name: Generate Presentation (Pandoc)
         run: |
+          mkdir _site
           docker run --rm -v ${{ github.workspace }}:/data pandoc/core \
-            WORKSHOP.md -t revealjs -s -o web/public/presentation.html \
+            WORKSHOP.md -t revealjs -s -o _site/index.html \
             -V theme=black -V revealjs-url=https://unpkg.com/reveal.js \
             --slide-level=2 --css=doc/custom.css
+
+      - name: Copy Assets
+        run: |
+          mkdir -p _site/doc
+          cp doc/* _site/doc/
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -57,11 +63,6 @@ jobs:
 
       - name: Prepare Deployment Artifact
         run: |
-          mkdir _site
-          # Copy presentation and public assets
-          cp -r web/public/* _site/
-          # Rename presentation to index.html (Main entry point)
-          mv _site/presentation.html _site/index.html
           # Create directory for strudel and copy build result
           mkdir -p _site/strudel
           cp -r strudel/website/dist/* _site/strudel/
