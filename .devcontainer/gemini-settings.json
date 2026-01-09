@@ -1,0 +1,17 @@
+{
+    "security": {
+        "auth": {
+            "selectedType": "oauth-personal"
+        }
+    },
+    "general": {
+        "previewFeatures": true
+    },
+    "mcpServers": {
+        "mcp-strudel": {
+            "url": "https://mcp-strudel.mcp.mathplosion.com/sse/",
+            "timeout": 30000,
+            "trust": true
+        }
+    }
+}
