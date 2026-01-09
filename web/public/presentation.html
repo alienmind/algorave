@@ -137,8 +137,8 @@ track</strong>: If you just wanna play with LLM+MCP
 (<em>BYOK!</em>)</li>
 <li><strong>[20 mins]</strong> <strong>Part 2b: Livecoders
 track</strong>: If you already know some music</li>
-<li><strong>[02 mins]</strong> <strong>Part 3: Strudel
-Awards</strong></li>
+<li><strong>[02 mins]</strong> <strong>Part 3: Strudel Awards</strong>:
+maybe ;-)</li>
 </ul>
 </section>
 <section id="introduction" class="slide level2">
@@ -173,22 +173,29 @@ perform with <strong>TidalCycles</strong>, <strong>SonicPi</strong>,
 <strong><a href="https://hydra.ojack.xyz/">Hydra</a></strong>,
 <strong><a href="https://p5js.org/">P5.js</a></strong>, etc.</li>
 </ul>
-<p><a href="https://www.youtube.com/watch?v=7qfCeIgtllY?t=140" target="_blank">
+<div style="text-align: center;">
+<a href="https://www.youtube.com/watch?v=7qfCeIgtllY?t=140" target="_blank">
 <img src="doc/algorave.png" alt="DJ_Dave & Char Stiles Livecoding Performance @ Algowave Algorave" width="300px">
-</a></p>
+</a>
+<p style="font-size: small; margin-top: 0;">
+DJ_Dave &amp; Char Stiles Livecoding Performance @ Algowave Algorave,
+2021
+</p>
+</div>
 </section>
 <section class="slide level2">
 
-<h3 id="algorave-hub-wip">🚧 Algorave Hub (WIP)</h3>
-<p>I’m building on a WIP app application that integrates an example KB +
-LLM+MCP for “vibe” music coding. <a
+<h3 id="side-note---algorave-hub-wip">🚧 Side note - Algorave Hub
+(WIP)</h3>
+<p>I’m working on a side project - that integrates strudel knowledge
+base + LLM+MCP powered “composition” for “vibe” music coding. <a
 href="https://github.com/alienmind/algorave">https://github.com/alienmind/algorave</a></p>
 <p><img src="doc/architecture.png" alt="Architecture" height="300px"></p>
-<p>Unfortunately not ready yet! - *** Stay tuned for the next workshop!
-***</p>
+<p>Unfortunately not ready yet! - <strong>Stay tuned for the next
+workshop!</strong></p>
 <blockquote>
-<p><strong>PLAN FOR TODAY</strong>: real livecoding + some vibe coding
-(alternative implementation)</p>
+<p><strong>PLAN FOR TODAY</strong>: real livecoding and/or “some” vibe
+coding (w/ alternative implementation)</p>
 </blockquote>
 </section>
 <section id="tutorial" class="slide level2">
@@ -207,7 +214,7 @@ mininotation</li>
 </section>
 <section class="slide level2">
 
-<h3 id="livecoders-vs-vibecoders">✋ Livecoders vs Vibecoders</h3>
+<h3 id="livecoders-vs-vibecoders">✋ Livecoders vs 👇 Vibecoders</h3>
 <ul>
 <li><strong>Raise your hand</strong> ✋ if you already know some music
 and wanna try livecoding.</li>
@@ -218,6 +225,10 @@ wanna be part of the vibe coding team.</li>
 style="display: flex; justify-content: space-around; align-items: center;">
 <p><img src="doc/meme.png" alt="Real Coders vs Live Coders" height="300px"></p>
 </div>
+<blockquote>
+<p><strong>IN REALITY</strong>: no need to choose, you can be both
+;-)</p>
+</blockquote>
 </section>
 <section id="part-2a-vibecoders-track" class="slide level2">
 <h2>🤖 Part 2a: Vibecoders Track</h2>
@@ -233,9 +244,11 @@ href="https://mcp-strudel.mcp.mathplosion.com/sse/">https://mcp-strudel.mcp.math
 </section>
 <section class="slide level2">
 
-<p>Skip next slides: if you want to reuse my setup by using a <a
+<p>Skip next slide: if you want to reuse <a
+href="https://github.com/alienmind/algorave">my setup</a> by using a <a
 href="https://github.com/features/codespaces">GitHub codespace</a> / <a
 href="https://containers.dev/">devcontainer</a></p>
+<p>Click on Code -&gt; Codespaces -&gt; Create codespace on main</p>
 <div
 style="display: flex; justify-content: space-around; align-items: center;">
 <p><img src="doc/codespaces.png" alt="GitHub Codespace" height="300px"></p>
@@ -276,16 +289,18 @@ class="sourceCode json"><code class="sourceCode json"><span id="cb2-1"><a href="
 <ul>
 <li><a href="https://mcp-strudel.mcp.mathplosion.com/strudel/">MCP
 Strudel Website</a></li>
-<li>Optionally: <a href="https://strudel.cc/">Strudel.cc</a></li>
+<li>Optionally: <a href="https://strudel.cc/">Strudel.cc</a> - not
+accessible with ECB laptops</li>
 <li>Any terminal with Gemini CLI</li>
+<li>Pick the session_id from MCP, paste it to LLM as first prompt: “Use
+session_id: xxxx for Strudel operations” so it can interact with MCP
+server window</li>
 </ul>
 <div
 style="display: flex; justify-content: space-around; align-items: center;">
 <p><img src="doc/strudel-mcp.png" alt="Strudel MCP" height="300px">
 <img src="doc/gemini.png" alt="Gemini CLI" height="300px"></p>
 </div>
-<p>Remember to prepend your LLM with this first prompt: “Use session_id:
-xxxx for Strudel operations” so it can reuse your MCP server window.</p>
 <p><strong>Try this prompt</strong>: Try “Write an amazing house track
 using Strudel”.</p>
 </section>

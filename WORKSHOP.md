@@ -23,7 +23,7 @@ A **1-hour workshop** exploring how to create music with code using Strudel.
 *   **[20 mins]** **Part 1: The Basics & Demo**: Walkthrough of core functionalities
 *   **[20 mins]** **Part 2a: Vibecoders track**: If you just wanna play with LLM+MCP (*BYOK!*)
 *   **[20 mins]** **Part 2b: Livecoders track**: If you already know some music
-*   **[02 mins]** **Part 3: Strudel Awards**
+*   **[02 mins]** **Part 3: Strudel Awards**: maybe ;-)
 
 ---
 
@@ -50,22 +50,25 @@ A **1-hour workshop** exploring how to create music with code using Strudel.
 *   **Diverse Tooling**: While we use Strudel, others perform with **TidalCycles**, **SonicPi**, **SuperCollider**, etc.
 *   **Visuals**: Optional! Often coded live using **[Hydra](https://hydra.ojack.xyz/)**, **[P5.js](https://p5js.org/)**, etc.
 
+<div style="text-align: center;">
 <a href="https://www.youtube.com/watch?v=7qfCeIgtllY?t=140" target="_blank">
   <img src="doc/algorave.png" alt="DJ_Dave & Char Stiles Livecoding Performance @ Algowave Algorave" width="300px">
 </a>
+<p style="font-size: small; margin-top: 0;">DJ_Dave & Char Stiles Livecoding Performance @ Algowave Algorave, 2021</p>
+</div>
 
 ---
 
-### 🚧 Algorave Hub (WIP)
+### 🚧 Side note - Algorave Hub (WIP)
 
-I'm building on a WIP app application that integrates an example KB + LLM+MCP for "vibe" music coding.
+I'm working on a side project - that integrates strudel knowledge base + LLM+MCP powered "composition" for "vibe" music coding.
 [https://github.com/alienmind/algorave](https://github.com/alienmind/algorave)
 
 <img src="doc/architecture.png" alt="Architecture" height="300px">
 
-Unfortunately not ready yet! - *** Stay tuned for the next workshop! ***
+Unfortunately not ready yet! - **Stay tuned for the next workshop!**
 
-> **PLAN FOR TODAY**: real livecoding + some vibe coding (alternative implementation)
+> **PLAN FOR TODAY**: real livecoding and/or "some" vibe coding (w/ alternative implementation)
 
 ---
 
@@ -80,7 +83,7 @@ Unfortunately not ready yet! - *** Stay tuned for the next workshop! ***
 
 ---
 
-### ✋ Livecoders vs Vibecoders
+### ✋ Livecoders vs 👇 Vibecoders
 
 *   **Raise your hand** ✋ if you already know some music and wanna try livecoding.
 *   **Lower your hand** 👇 if you don't know any music or wanna be part of the vibe coding team.
@@ -88,6 +91,8 @@ Unfortunately not ready yet! - *** Stay tuned for the next workshop! ***
 <div style="display: flex; justify-content: space-around; align-items: center;">
   <img src="doc/meme.png" alt="Real Coders vs Live Coders" height="300px">
 </div>
+
+> **IN REALITY**: no need to choose, you can be both ;-)
 
 ---
 
@@ -101,7 +106,9 @@ Let's start by setting up an **SSE enabled MCP server**
 
 ---
 
-Skip next slides: if you want to reuse my setup by using a [GitHub codespace](https://github.com/features/codespaces) / [devcontainer](https://containers.dev/)
+Skip next slide: if you want to reuse [my setup](https://github.com/alienmind/algorave) by using a [GitHub codespace](https://github.com/features/codespaces) / [devcontainer](https://containers.dev/)
+
+Click on Code -> Codespaces -> Create codespace on main
 
 <div style="display: flex; justify-content: space-around; align-items: center;">
   <img src="doc/codespaces.png" alt="GitHub Codespace" height="300px">
@@ -145,14 +152,15 @@ Add the server to your configuration (~/.gemini/settings.json)
 Open up side by side:
 
 *   [MCP Strudel Website](https://mcp-strudel.mcp.mathplosion.com/strudel/)
-*   Optionally: [Strudel.cc](https://strudel.cc/)
+*   Optionally: [Strudel.cc](https://strudel.cc/) - not accessible with ECB laptops
 *   Any terminal with Gemini CLI
+*   Pick the session_id from MCP, paste it to LLM as first prompt: "Use session_id: xxxx for Strudel operations" so it can interact with MCP server window
 
 <div style="display: flex; justify-content: space-around; align-items: center;">
   <img src="doc/strudel-mcp.png" alt="Strudel MCP" height="300px">
   <img src="doc/gemini.png" alt="Gemini CLI" height="300px">
 </div>
-Remember to prepend your LLM with this first prompt: "Use session_id: xxxx for Strudel operations" so it can reuse your MCP server window.
+
 
 **Try this prompt**: Try "Write an amazing house track using Strudel".
 
@@ -166,7 +174,6 @@ Remember to prepend your LLM with this first prompt: "Use session_id: xxxx for S
 *   **Resources**: Use the [examples](https://github.com/alienmind/algorave/tree/main/examples) or the [gallery](https://strudel.patternclub.org/workshop/site-gallery), more free sounds available in [freesound.org](https://freesound.org/)
 
 Remember - ⚡ENERGY: YES! ✨QUALITY: NO! - you’re not looking for a perfect polished track, but something that feels good to you :)
-
 
 
 ---
