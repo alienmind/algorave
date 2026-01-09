@@ -13,6 +13,15 @@ The project is a composite of:
 - A locally running MCP server from the amazing [strudel-mcp-server](https://github.com/williamzujkowski/strudel-mcp-server)
 - A companion web app for easy picking up examples and integrate everything together
 
+## 🛠️ Tools Catalog
+
+This "hub" aims to integrate a conglomerate of useful tools for Algorave:
+
+*   [**strudel.cc**](https://strudel.cc) - The official Strudel website and player.
+*   [**strudel-mcp-server**](https://github.com/williamzujkowski/strudel-mcp-server) - MCP Server for Strudel (local integration) (see also [npm page](https://libraries.io/npm/@williamzujkowski%2Fstrudel-mcp-server))
+*   [**midi-to-strudel**](https://github.com/alienmind/MIDI-To-Strudel) - Scripts to convert MIDI files to Strudel code.
+*   **Other useful stuff** - More integrations coming soon!
+
 The intention of the project is accelerating learning plus making easier to spin up everything locally for airgapped music production.
 I spend a portion of my life in planes so this is something I needed to do anyway ;-)
 
@@ -116,8 +125,10 @@ The chat interface is powered by **Open WebUI**. On first launch, you must compl
 - [x] Cross-pane copy & paste functionality
 - [x] Production-ready containerization (Hybrid Architecture)
 - [x] Connect chat to LLMs via Open WebUI
+- [ ] Fix [strudel mcp server issue](https://github.com/williamzujkowski/strudel-mcp-server/issues/54) with headless browser synchronization 
 - [ ] Automagically paste the code into strudel player
 - [ ] Add magical buttons that produce prompts to the LLM running on OpenWebUI
+- [ ] Integrate midi-to-strudel as a separate MCP tool
 - [ ] Add real-time visuals (p5.js / Hydra)
 
 ## Credits

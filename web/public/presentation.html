@@ -128,8 +128,8 @@ href="https://alienmind.github.io/algorave/presentation.html#/algorave-strudel-w
 <section id="schedule" class="slide level2">
 <h2>📅 Schedule</h2>
 <ul>
-<li><strong>[08 mins]</strong> <strong>Introduction</strong>: Culture,
-Architecture &amp; Context</li>
+<li><strong>[08 mins]</strong> <strong>Introduction</strong>: Algorave
+Culture &amp; Context</li>
 <li><strong>[20 mins]</strong> <strong>Part 1: The Basics &amp;
 Demo</strong>: Walkthrough of core functionalities</li>
 <li><strong>[20 mins]</strong> <strong>Part 2a: Vibecoders
@@ -149,8 +149,8 @@ style="display: flex; justify-content: space-around; align-items: center;">
 <p><img src="doc/strudel.jpg" alt="Strudel Dessert" width="300px"></p>
 </div>
 <ul>
-<li><strong>Web-based Live Coding</strong>: A port of the legendary
-<strong>TidalCycles</strong> logic to JavaScript - Open Source and
+<li><strong>Web-based Live Coding</strong>: A port of
+<strong>TidalCycles</strong> (Haskell) to JavaScript - Open Source and
 community-driven!</li>
 <li><strong>Zero Footprint</strong>: No installation required!</li>
 <li><strong>Portability</strong>: Make music anywhere, on any device
@@ -233,52 +233,59 @@ href="https://mcp-strudel.mcp.mathplosion.com/sse/">https://mcp-strudel.mcp.math
 </section>
 <section class="slide level2">
 
-<h3 id="step-1-install-gemini-cli-any-other-llm-will-work">Step 1:
-Install Gemini CLI (any other LLM will work)</h3>
+<p>Skip next slides: if you want to reuse my setup by using a <a
+href="https://github.com/features/codespaces">GitHub codespace</a> / <a
+href="https://containers.dev/">devcontainer</a></p>
+<div
+style="display: flex; justify-content: space-around; align-items: center;">
+<p><img src="doc/codespaces.png" alt="GitHub Codespace" height="300px"></p>
+</div>
+</section>
+<section id="setting-up-mcp-server-with-gemini-cli"
+class="slide level2">
+<h2>Setting up MCP server with Gemini CLI</h2>
 <p>Open your terminal and run:</p>
 <div
 style="display: flex; justify-content: space-around; align-items: center;">
 <div class="sourceCode" id="cb1"><pre
-class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> npm install <span class="at">-g</span> gemini-chat-cli</span></code></pre></div>
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> npm install <span class="at">-g</span> gemini-chat-cli@latest</span></code></pre></div>
 </div>
-</section>
-<section class="slide level2">
-
-<h3 id="step-2-add-mcp-server">Step 2: Add MCP Server</h3>
 Add the server to your configuration (~/.gemini/settings.json)
 <div
 style="display: flex; justify-content: space-around; align-items: center;">
 <div class="sourceCode" id="cb2"><pre
 class="sourceCode json"><code class="sourceCode json"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="er">...</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;mcpServers&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;mcp-strudel&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;url&quot;</span><span class="fu">:</span> <span class="st">&quot;https://mcp-strudel.mcp.mathplosion.com/sse/&quot;</span><span class="fu">,</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;timeout&quot;</span><span class="fu">:</span> <span class="dv">30000</span><span class="fu">,</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;trust&quot;</span><span class="fu">:</span> <span class="kw">true</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">}</span></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="er">...,</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;general&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;previewFeatures&quot;</span><span class="fu">:</span> <span class="kw">true</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">},</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;mcpServers&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;mcp-strudel&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;url&quot;</span><span class="fu">:</span> <span class="st">&quot;https://mcp-strudel.mcp.mathplosion.com/sse/&quot;</span><span class="fu">,</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;timeout&quot;</span><span class="fu">:</span> <span class="dv">30000</span><span class="fu">,</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;trust&quot;</span><span class="fu">:</span> <span class="kw">true</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">}</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 </section>
 <section class="slide level2">
 
-<h3 id="step-3-list-servers-run">Step 3: List Servers &amp; Run</h3>
-Open up side by side: <a
-href="https://mcp-strudel.mcp.mathplosion.com/strudel/">Strudel</a> and
-any terminal with Gemini CLI
-<div
-style="display: flex; justify-content: space-around; align-items: center;">
-<div class="sourceCode" id="cb3"><pre
-class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> gemini</span></code></pre></div>
-</div>
+<h3 id="vibe-coding-session">Vibe coding session!</h3>
+<p>Open up side by side:</p>
+<ul>
+<li><a href="https://mcp-strudel.mcp.mathplosion.com/strudel/">MCP
+Strudel Website</a></li>
+<li>Optionally: <a href="https://strudel.cc/">Strudel.cc</a></li>
+<li>Any terminal with Gemini CLI</li>
+</ul>
 <div
 style="display: flex; justify-content: space-around; align-items: center;">
 <p><img src="doc/strudel-mcp.png" alt="Strudel MCP" height="300px">
 <img src="doc/gemini.png" alt="Gemini CLI" height="300px"></p>
 </div>
-<p>Remember to tell your LLM: “Use session_id: xxxx for Strudel
-operations” so it can connect to the same MCP server window.</p>
+<p>Remember to prepend your LLM with this first prompt: “Use session_id:
+xxxx for Strudel operations” so it can reuse your MCP server window.</p>
 <p><strong>Try this prompt</strong>: Try “Write an amazing house track
 using Strudel”.</p>
 </section>

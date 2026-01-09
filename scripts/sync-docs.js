@@ -22,7 +22,7 @@ if (!fs.existsSync(destDocDir)) fs.mkdirSync(destDocDir, { recursive: true });
 // presentation.html is now generated directly into destDocDir by the build process.
 
 // 2. Copy images to web/public/doc/ so relative links "doc/image.png" work from presentation.html
-const filesToCopy = ['logo.png', 'custom.css', 'architecture.png', 'strudel.jpg', 'gemini.png', 'strudel_icon.png', 'meme.png', 'algorave.png', 'strudel-mcp.png'];
+const filesToCopy = ['logo.png', 'custom.css', 'architecture.png', 'strudel.jpg', 'gemini.png', 'strudel_icon.png', 'meme.png', 'algorave.png', 'strudel-mcp.png', 'codespaces.png'];
 filesToCopy.forEach(file => {
     copyFile(path.join(srcDocDir, file), path.join(destDocDir, file));
 });
