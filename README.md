@@ -18,6 +18,7 @@ The project is a composite of:
 This "hub" aims to integrate a conglomerate of useful tools for Algorave:
 
 *   [**strudel.cc**](https://strudel.cc) - The official Strudel website and player.
+*   [**Self-hosted Strudel**](https://alienmind.github.io/algorave/strudel/) - The local fork hosted on GitHub Pages.
 *   [**strudel-mcp-server**](https://github.com/williamzujkowski/strudel-mcp-server) - MCP Server for Strudel (local integration) (see also [npm page](https://libraries.io/npm/@williamzujkowski%2Fstrudel-mcp-server))
 *   [**midi-to-strudel**](https://github.com/alienmind/MIDI-To-Strudel) - Scripts to convert MIDI files to Strudel code.
 *   **Other useful stuff** - More integrations coming soon!

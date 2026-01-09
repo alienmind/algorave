@@ -6,7 +6,7 @@ A **1-hour workshop** exploring how to create music with code using Strudel.
 
 ## 🔗 Links
 
-**Strudel**: [https://strudel.cc](https://strudel.cc)
+**Strudel**: [https://strudel.cc](https://strudel.cc) || [Self-hosted option](https://alienmind.github.io/algorave/strudel/)
 (install the PWA for best performance)
 
 **Site Gallery / Tutorial**: [https://strudel.patternclub.org/workshop/site-gallery](https://strudel.patternclub.org/workshop/site-gallery)
@@ -152,7 +152,7 @@ Add the server to your configuration (~/.gemini/settings.json)
 Open up side by side:
 
 *   [MCP Strudel Website](https://mcp-strudel.mcp.mathplosion.com/strudel/)
-*   Optionally: [Strudel.cc](https://strudel.cc/) - not accessible with ECB laptops
+*   Optionally: Use my [Strudel.cc fork](https://alienmind.github.io/algorave/strudel/) (or [Official Strudel.cc](https://strudel.cc/) - not accessible with corporate laptops)
 *   Any terminal with Gemini CLI
 *   Pick the session_id from MCP, paste it to LLM as first prompt: "Use session_id: xxxx for Strudel operations" so it can interact with MCP server window
 
