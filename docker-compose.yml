@@ -67,7 +67,7 @@ services:
     image: pandoc/core
     volumes:
       - .:/data
-    command: [ "WORKSHOP.md", "-t", "revealjs", "-s", "-o", "web/public/presentation.html", "-V", "theme=black", "-V", "revealjs-url=https://unpkg.com/reveal.js", "--slide-level=2", "--css=doc/custom.css" ]
+    command: [ "WORKSHOP.md", "-t", "revealjs", "-s", "-o", "dist/presentation.html", "-V", "theme=black", "-V", "revealjs-url=https://unpkg.com/reveal.js", "--slide-level=2", "--css=doc/custom.css" ]
 
 networks:
   algorave_network:

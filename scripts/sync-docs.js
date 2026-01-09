@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 
 const srcDocDir = path.join(__dirname, '..', 'doc');
-const destPublicDir = path.join(__dirname, '..', 'web', 'public');
+const destPublicDir = path.join(__dirname, '..', 'dist');
 const destDocDir = path.join(destPublicDir, 'doc');
 
 function copyFile(src, dest) {
