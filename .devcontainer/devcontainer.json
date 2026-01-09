@@ -26,5 +26,5 @@
 		}
 	},
 	// Install project dependencies and init submodules
-	"postCreateCommand": "git submodule update --init --recursive && npm install && cd web && npm install && cd .. && cp -av .env.example .env && npm install -g @google/gemini-cli@latest && mkdir -p ~/.gemini && cp .devcontainer/gemini-settings.json ~/.gemini/settings.json"
+	"postCreateCommand": "git submodule update --init --recursive && npm install && cp -av .env.example .env && npm install -g @google/gemini-cli@latest && mkdir -p ~/.gemini && cp .devcontainer/gemini-settings.json ~/.gemini/settings.json"
 }
