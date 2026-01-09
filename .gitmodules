@@ -7,3 +7,6 @@
 [submodule "strudel-mcp-server"]
 	path = strudel-mcp-server
 	url = https://github.com/alienmind/strudel-mcp-server
+[submodule "midi-to-strudel"]
+	path = midi-to-strudel
+	url = https://github.com/alienmind/MIDI-To-Strudel
