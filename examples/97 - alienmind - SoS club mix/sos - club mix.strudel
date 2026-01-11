@@ -9,25 +9,26 @@
 setCps(140/60/4)
 
 // Section goes from 0 to 2
-const SECTION = 0
+const SECTION = 2
 
 // Basic mixer with slider
 const RISER_VOL=slider(0,0,1)
 // We can control bass energies with low pass filters envelops
-const KICK_VOL=slider(0,0,1)
-const BASS_VOL=slider(0,0,1)
+const KICK_VOL=slider(0.607,0,1)
+const BASS_VOL=slider(1,0,1)
 const BASS_ENERGY=slider(1,1,4)
-const SUB_VOL=slider(0,0,1)
-const SUB_ENERGY=slider(1,1,4)
-const HH_VOL=slider(0,0,1)
-const SNARE_VOL=slider(0,0,1)
-const HHR_VOL=slider(0.174,0,1)
-const VOCALS_VOL=slider(1,0,1)
+const SUB_VOL=slider(0.452,0,1)
+const SUB_ENERGY=slider(1.999,1,4)
+const HH_VOL=slider(0.325,0,1)
+const SNARE_VOL=slider(0.484,0,1)
+const HHR_VOL=slider(0.202,0,1)
+const VOCALS_VOL=slider(0.5,0,1)
 
 
 
 // This will add some notes to the base note
 const CHORD_PROGRESSION = [
+  "0",
   "0",
   "0",
   "<0 7 5 6>"
@@ -37,10 +38,12 @@ const CHORD_PROGRESSION = [
 const BASSLINE_PATTERN = [
   // Intro
   "0*16",
-  // Verse
+  // Verse1
+  "0*16",  
+  // Verse2
   "<[-13 0 -13 1]>*4",
   // Drop
-  "<[-13 0 1 13]>*8"
+  "<[-13 0 1 13]>*4"
 ]
 
 
@@ -48,7 +51,7 @@ const BASSLINE_PATTERN = [
 const VOCALS_PATTERN = [
   "<<0 ~ ~ [~ ~] ~ ~ ~ ~ ~ ~> ~>",
   "<<0 1 2 [3 4] 5 6 7 8 9 10> ~>",
-  "<<0 1 2 [3 4] 5 6 7 8 9 10> ~>"
+  "<<0 1 2 [3 4] 5 6 7 8 9 10> ~>",
 ]
 
 // Riser pattern
@@ -65,7 +68,7 @@ const RISER_PATTERN = [
 $kick: s("[bd]*4").bank("tr909")
   //.dist("3:.3")
   .gain(KICK_VOL)
-  .delay(0.3)
+  .delay(0)
   ._scope()
 // Sidechain kick to orbit 2,3 for pumping other overlapping instruments
 .duck("2:3").duckattack(.2).duckdepth(.8)
@@ -112,6 +115,6 @@ lowendbass: n(irand(2).almostNever(x=>x.add(7)).sub(7).seg(16)).scale("f:phrygia
 
 
 // Vocals
-$vocals: n(pick(VOCALS_PATTERN,SECTION)).s("sos-vocals").almostNever(x => x.delay(.5)).gain(VOCALS_VOL)._pianoroll()
+$vocals: n(pick(VOCALS_PATTERN,SECTION)).s("sos-vocals-processed").almostNever(x => x.delay(.5)).gain(VOCALS_VOL)._pianoroll()
 
 //_$vocals2: n(rand).s("sos-vocals").gain(VOCALS_VOL)._pianoroll()
