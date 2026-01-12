@@ -9,21 +9,35 @@
 setCps(140/60/4)
 
 // Section goes from 0 to 2
-const SECTION = 2
+const SECTION = 0
 
-// Basic mixer with slider
+// Basic mixer with sliders
+// const KICK_VOL=slider(0.607,0,1)
+// const SNARE_VOL=slider(0.484,0,1)
+// const HH_VOL=slider(0.325,0,1)
+// const HHR_VOL=slider(0.202,0,1)
+// const VOCALS_VOL=slider(0.5,0,1)
 const RISER_VOL=slider(0,0,1)
-// We can control bass energies with low pass filters envelops
-const KICK_VOL=slider(0.607,0,1)
-const BASS_VOL=slider(1,0,1)
-const BASS_ENERGY=slider(1,1,4)
-const SUB_VOL=slider(0.452,0,1)
-const SUB_ENERGY=slider(1.999,1,4)
-const HH_VOL=slider(0.325,0,1)
-const SNARE_VOL=slider(0.484,0,1)
-const HHR_VOL=slider(0.202,0,1)
-const VOCALS_VOL=slider(0.5,0,1)
+// const BASS_VOL=slider(1,0,1)
+// const SUB_VOL=slider(0.452,0,1)
 
+// // Energy levels
+// const BASS_ENERGY=slider(1,1,4)
+// const SUB_ENERGY=slider(1.999,1,4)
+
+// If we wanted to use a physical knobs instead of a slider via MIDI
+const  cc = await midin()
+// Bank 1 - cc(1) to cc(8)
+const KICK_VOL=cc(1).range(0,1)
+const SNARE_VOL=cc(2).range(0,1)
+const HH_VOL=cc(3).range(0,1)
+const HHR_VOL=cc(4).range(0,1)
+const VOCALS_VOL=cc(5).range(0,1)
+const BASS_VOL=cc(6).range(0,1)
+const SUB_VOL=cc(6).range(0,1)
+const BASS_ENERGY=cc(7).range(0,500)
+const SUB_ENERGY=cc(8).range(0,500)
+// Bank 1 - cc(9) to cc(16)
 
 
 // This will add some notes to the base note
@@ -87,9 +101,6 @@ $hhr: s("hh!16").bank("yamaharm50").delay(0.1).gain(HHR_VOL)._scope()
 
 
 
-// If we wanted to use a physical knob instead of a slider via MIDI
-// const  cc = await midin('3- UMC404HD 192k MIDI In')
-// const BASS_ENERGY=cc(74)
 
 // E-F-F# Bassline
 $bass: n(pick(BASSLINE_PATTERN,SECTION).add(pick(CHORD_PROGRESSION, SECTION))).fast(1).scale("f:phrygian")._pianoroll()
@@ -115,6 +126,6 @@ lowendbass: n(irand(2).almostNever(x=>x.add(7)).sub(7).seg(16)).scale("f:phrygia
 
 
 // Vocals
-$vocals: n(pick(VOCALS_PATTERN,SECTION)).s("sos-vocals-processed").almostNever(x => x.delay(.5)).gain(VOCALS_VOL)._pianoroll()
+$vocals: n(pick(VOCALS_PATTERN,SECTION)).s("sos-vocals").almostNever(x => x.delay(.5)).gain(VOCALS_VOL)._pianoroll()
 
 //_$vocals2: n(rand).s("sos-vocals").gain(VOCALS_VOL)._pianoroll()
