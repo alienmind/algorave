@@ -158,7 +158,15 @@ $hh: s("[~ hh]*4").bank("tr909").delay(0.3).gain(HH_VOL)._scope()// Rolling hiha
 $hhr: s("hh!16").bank("yamaharm50").delay(0.1).gain(HHR_VOL)._scope()
 
 
-
+/*
+  ____                    _  _             
+ |  _ \                  | |(_)            
+ | |_) |  __ _  ___  ___ | | _  _ __   ___ 
+ |  _ <  / _` |/ __|/ __|| || || '_ \ / _ \
+ | |_) || (_| |\__ \\__ \| || || | | ||  __/
+ |____/  \__,_||___/|___/|_||_||_| |_| \___|
+                                           
+*/
 
 // E-F-F# Bassline
 $bass: n(pick(BASSLINE_PATTERN,SECTION).add(pick(CHORD_PROGRESSION, SECTION))).fast(1).scale("f:phrygian")._pianoroll()
