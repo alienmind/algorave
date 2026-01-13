@@ -1,44 +1,16 @@
 // "Bronski Beat - Smalltown Boy Cover"
 // Based on the tutorials at https://strudel.cc/workshop/first-notes/#examples
-// Borrowed from https://strudel.cc/?BVx2BSskV3b1#Ly8gIkJyb25za2kgQmVhdCAtIFNtYWxsdG93biBCb3kgQ292ZXIiCi8vIEJhc2VkIG9uIHRoZSB0dXRvcmlhbHMgYXQgaHR0cHM6Ly9zdHJ1ZGVsLmNjL3dvcmtzaG9wL2ZpcnN0LW5vdGVzLyNleGFtcGxlcwovLyBNYWRlIHRvIHRlYWNoIGtpZHMgU3RydWRlbCBhdCBhIGxvY2FsIHNjaG9vbAoKbGV0IGRydW1zID0gcygiYmQqNCwgW34gPHNkIGNwPl0qMiwgW34gaGhdKjQiKQogIC5iYW5rKCJMaW5uTE0xIikKICAucm9vbShzbGlkZXIoMC4yNSkpCgpsZXQgYmFzc2xpbmUgPSBub3RlKCI8W2MyIGMzXSo0IFtiYjEgYmIyXSo0IFtmMiBmM10qNCBbZWIyIGViM10qND4iKQogIC5zb3VuZCgiZ21fc3ludGhfYmFzc18yIikKICAubHBmKDgwMCkKICAucm9vbShzbGlkZXIoMC4yNSkpCgpsZXQgbGVhZCA9IG4oYDwKW34gMF0gMiBbMCAyXSBbfiAyXQpbfiAwXSAxIFswIDFdIFt%2BIDFdClt%2BIDBdIDMgWzAgM10gW34gM10KW34gMF0gMiBbMCAyXSBbfiAyXQo%2BKjRgKS5zY2FsZSgiQzU6bWlub3IiKQouc291bmQoImhhcnAiKQoubHBmKDIwMDApCi5nYWluKDEuMjUpCi5yb29tKHNsaWRlcigwLjI1KSkKCnN0YWNrKAogIGJhc3NsaW5lLAogIGRydW1zLAogIGFycmFuZ2UoCiAgICBbOCwgbGVhZC5tYXNrKDApXSwKICAgIFsxNiwgbGVhZF0sCiAgICBbOCwgbGVhZC5tYXNrKDApXSwKICApCikKLnRzY29wZSh7CiAgc2NhbGU6IC4yNSwKICBwb3M6IC40LAogIGNvbG9yOiAnbGlnaHRibHVlJywKICBzbWVhcjogMC44NSwKICB0aGlja25lc3M6IDEwLAp9KQoKLy8gQHZlcnNpb24gMS4w
-
-
-
-
-// Basic mixer constants - we'll use them down the line
-const _KICK_VOL = slider(0.432,0,1)
-const _KICK_DIST = slider(2.467,1,4)
-
-// Basic techno rythm - 4 on the floor
-// sbd is short for soft bass drum
-_$ : s("[sbd]*4")
-  // let's add some nice distortion, volume adjusted and a visualization
-  // this is picked up from the constants above
-  .dist(_KICK_DIST)  // postgain : pattern
-  .gain(_KICK_VOL)
-  ._scope()
-  // Sidechain kick to orbit 2,3,4
-  .duck("2:3:4").duckattack(.2).duckdepth(.8)
-
-// "Bassic" bassline
-// 
-$ : note("<[c2 c3]*4 [bb1 bb2]*4 [f2 f3]*4 [eb2 eb3]*4>")
-.sound("gm_synth_bass_1")
-
-// With a low-pass filter at 800Hz  
-.lpf(800)
-// Let's duck it under the kick  
-.orbit(2)
-
+// Made to teach kids Strudel at a local school
+setCpm(135/4)
 
 let drums = s("bd*4, [~ <sd cp>]*2, [~ hh]*4")
-  .bank("LinnLM1")
-  .room(slider(0.826))
+  .bank("tr909")
+  .room(slider(0.16))
 
 let bassline = note("<[c2 c3]*4 [bb1 bb2]*4 [f2 f3]*4 [eb2 eb3]*4>")
   .sound("gm_synth_bass_2")
   .lpf(800)
-  .room(slider(0.826))
+  .room(slider(0.25))
 
 let lead = n(`<
 [~ 0] 2 [0 2] [~ 2]
@@ -49,7 +21,8 @@ let lead = n(`<
 .sound("harp")
 .lpf(2000)
 .gain(1.25)
-.room(slider(1))
+.room(slider(0.398))
+
 
 stack(
   bassline,
@@ -60,12 +33,4 @@ stack(
     [8, lead.mask(0)],
   )
 )
-.tscope({
-  scale: .25,
-  pos: .4,
-  color: 'lightblue',
-  smear: 0.85,
-  thickness: 10,
-})
-
 // @version 1.0
