@@ -24,12 +24,13 @@ const synth = stack(
     n("<[[2 ~] [2 ~] 2 3] [[3 ~] [3 ~] 3 3]>@4 [-1 ~] -1 -1 [0 ~] 0 0 [0 ~] 0 0 [0 ~] 0 0"))            
       .sound("<supersaw>")
       .slow(2)
-      .scale("d3:minor,d4:minor")    
+      .scale("d3:minor,d2:minor")    
       .attack(0.05)
       .hpf("<100 200>*12")
       .decay(100)
       .gain("0.3")
       .room(.400)
+      .pan(perlin.slow("<1,2,3>"))
 
 stack(
    arrange(
