@@ -5,15 +5,14 @@
 // start by section 1, turn some knobs and on the loop turn section 2 onwards
 // Section 4 is intended to run on minimal energy and countdown
 
-/*
-  _____         _               
- |_   _|       | |              
-   | |   _ __  | |_  _ __   ___ 
-   | |  | '_ \ | __|| '__| / _ \
-  _| |_ | | | || |_ | |   | (_) |
- |_____||_| |_| \__||_|    \___/ 
+
+//  _____         _               
+// |_   _|       | |              
+//   | |   _ __  | |_  _ __   ___ 
+//   | |  | '_ \ | __|| '__| / _ \
+//  _| |_ | | | || |_ | |   | (_) |
+// |_____||_| |_| \__||_|    \___/ 
                                  
-*/
 // Tempo 133 bpm at 4/4
 setCps(133/60/4)
 
@@ -38,15 +37,13 @@ const VOCALS_PATTERN = [
   "<<9 8 7 6 5 4 3 2 1 0> ~>",  
 ]
 
-/*
-   _____            _              _
-  / ____|          | |            | |
- | |     ___  _ __ | |_ _ __ ___  | | ___
- | |    / _ \| '_ \| __| '__/ _ \ | |/ __|
- | |___| (_) | | | | |_| | | (_) || |\__ \
-  \_____\___/|_| |_|\__|_|  \___/ |_||___/
+//   _____            _              _
+//  / ____|          | |            | |
+// | |     ___  _ __ | |_ _ __ ___  | | ___
+// | |    / _ \| '_ \| __| '__/ _ \ | |/ __|
+// | |___| (_) | | | | |_| | | (_) || |\__ \
+//  \_____\___/|_| |_|\__|_|  \___/ |_||___/
 
-*/
 
 // Option 1 - we perform with sliders
 // Basic mixer with sliders
@@ -61,8 +58,8 @@ const VOCALS_PATTERN = [
 // const BASS_ENERGY=slider(1,1,4)
 // const SUB_ENERGY=slider(1.999,1,4)
 
-// If we want to use physical knobs instead of sliders via MIDI
-const  cc = await midin('MPK mini 3',{debug : true})
+// Option 2 - we perform with physical knobs via MIDI
+const  cc = await midin('MPK mini 3',{debug : true}) // Experimental feature. Device name could also be omitted
 // Bank 1 - cc(1) to cc(8)
 const KICK_VOL=cc(1).range(0,1)
 const SNARE_VOL=cc(2).range(0,1)
@@ -75,29 +72,29 @@ const BASS_ENERGY=cc(7).range(0,5)
 const SUB_ENERGY=cc(8).range(0,5)
 // Bank 1 - cc(9) to cc(16)
 
-/*
-  _    _                  _     
- | |  | |                | |    
- | |  | | ___   ___ __ _ | | ___ 
- | |  | |/ _ \ / __/ _` || |/ __|
- \ \__/ / (_) | (_| (_| || |\__ \
-  \____/ \___/ \___\__,_||_||___/
-                                 
-*/
+
+//  _    _                  _     
+// | |  | |                | |    
+// | |  | | ___   ___ __ _ | | ___ 
+// | |  | |/ _ \ / __/ _` || |/ __|
+// \ \__/ / (_) | (_| (_| || |\__ \
+//  \____/ \___/ \___\__,_||_||___/
+                              
 $vocals: n(pick(VOCALS_PATTERN,SECTION)).s(pick(VOCALS, SECTION))
   .almostNever(x => x.delay(.5))
+  .when(SECTION == 5,x=>x.s("sos-vocals:0"))
   .gain(VOCALS_VOL)._pianoroll()
 
-/*
-  __  __       _           _       
- |  \/  |     | |         | |      
- | \  / |  ___| | ___   __| | _  _ 
- | |\/| | / _ \ |/ _ \ / _` || || |
- | |  | ||  __/ | (_) | (_| || || |
- |_|  |_| \___|_|\___/ \__,_|\__, |
-                              __/ |
-                             |___/ 
-*/
+
+//  __  __       _           _       
+// |  \/  |     | |         | |      
+// | \  / |  ___| | ___   __| | _  _ 
+// | |\/| | / _ \ |/ _ \ / _` || || |
+// | |  | ||  __/ | (_) | (_| || || |
+// |_|  |_| \___|_|\___/ \__,_|\__, |
+//                              __/ |
+//                             |___/ 
+
 
 // This will add some notes to the base note
 const CHORD_PROGRESSION = [
@@ -133,23 +130,22 @@ const RISER_PATTERN = [
   "0.3*16",
 ]
 
-/*
-  _____                               
- |  __ \                              
- | |  | | _ __  _   _  _ __ ___   ___ 
- | |  | || '__|| | | || '_ ` _ \ / __|
- | |__| || |   | |_| || | | | | |\__ \
- |_____/ |_|    \__,_||_| |_| |_||___/
+
+//  _____                               
+// |  __ \                              
+// | |  | | _ __  _   _  _ __ ___   ___ 
+// | |  | || '__|| | | || '_ ` _ \ / __|
+// | |__| || |   | |_| || | | | | |\__ \
+// |_____/ |_|    \__,_||_| |_| |_||___/
                                       
-*/
 
 // KICK - 4 on the floor
 $kick: s("[bd]*4").bank("tr909")
   //.dist("3:.3")  
   .gain(KICK_VOL)
   .delay(0)
-  ._scope()// Sidechain kick to orbit 2,3 for pumping other overlapping instruments
-.duck("2:3:4").duckattack(.2).duckdepth(.8)
+  ._scope()// Sidechain kick to orbit 2,3,4 for pumping other overlapping instruments
+.duck("2,3,4").duckattack(.2).duckdepth(.8)
 
 // Snare
 $snare: s("[~  sd  ~ sd]*2").slow(2).bank("tr909").gain(SNARE_VOL)._scope()
@@ -157,29 +153,22 @@ $snare: s("[~  sd  ~ sd]*2").slow(2).bank("tr909").gain(SNARE_VOL)._scope()
 $hh: s("[~ hh]*4").bank("tr909").delay(0.3).gain(HH_VOL)._scope()// Rolling hihat
 $hhr: s("hh!16").bank("yamaharm50").delay(0.1).gain(HHR_VOL)._scope()
 
-
-/*
-  ____                    _  _             
- |  _ \                  | |(_)            
- | |_) |  __ _  ___  ___ | | _  _ __   ___ 
- |  _ <  / _` |/ __|/ __|| || || '_ \ / _ \
- | |_) || (_| |\__ \\__ \| || || | | ||  __/
- |____/  \__,_||___/|___/|_||_||_| |_| \___|
-                                           
-*/
-
-// E-F-F# Bassline
+//  ____                    _  _             
+// |  _ \                  | |(_)            
+// | |_) |  __ _  ___  ___ | | _  _ __   ___ 
+// |  _ <  / _` |/ __|/ __|| || || '_ \ / _ \
+// | |_) || (_| |\__ \\__ \| || || | | ||  __/
+// |____/  \__,_||___/|___/|_||_||_| |_| \___|
+// Nice tb303 with adjustable energy
 $bass: n(pick(BASSLINE_PATTERN,SECTION).add(pick(CHORD_PROGRESSION, SECTION))).fast(1).scale("f:phrygian")._pianoroll()
 // Heavy distortion
 //.dist("2:0.3")
-// Nice tb303 with adjustable energy
 .s("sawtooth").lpf(200).lpenv(BASS_ENERGY).lpq(12).gain(BASS_VOL)
 // Make it pump with the duck
 .orbit(2)
 
 // // Random 303 bassline - not super random really, occasionally +1 octave
 lowendbass: n(irand(2).almostNever(x=>x.add(7)).sub(7).seg(16)).scale("f:phrygian")._pianoroll()
-//lowendbass: n(pick(BASSLINE_PATTERN,SECTION).almostNever(x=>x.add(7)).sub(7).seg(16)).scale("f:phrygian")._pianoroll()
 // Make it repeatable
 .rib(10,4)
 // Heavy distortion
@@ -189,15 +178,41 @@ lowendbass: n(irand(2).almostNever(x=>x.add(7)).sub(7).seg(16)).scale("f:phrygia
 // Make it pump with the duck
 .orbit(3)
 
-/*
-  ______  __   __
- |  ____| \ \ / /
- | |__     \ V / 
- |  __|     > <  
- | |       / . \ 
- |_|      /_/ \_\
-                 
-*/
 
+//  ______  __   __
+// |  ____| \ \ / /
+// | |__     \ V / 
+// |  __|     > <  
+// | |       / . \ 
+// |_|      /_/ \_\
+                 
 // Riser - useful for the intro
 $riser: s("pulse").orbit(4).seg(16).dec(.1).fm(time).fmh(time).gain(pick(RISER_PATTERN,SECTION))
+
+//  _____                     
+// |  __ \                    
+// | |__) | __ _ __   __ ___  
+// |  _  / / _` |\ \ / // _ \ 
+// | | \ \| (_| | \ V /|  __/ 
+// |_|  \_\\__,_|  \_/  \___|
+//
+await initHydra({ feedStrudel: 1})
+src(s0)
+  .kaleid(H("<4 5 6>"))
+  .modulateScale(osc(2,-0.25,1))
+  // 1. Cycle Dark Red, Dark Green, Dark Blue
+  // We use H() to sequence the R, G, and B channels separately.
+  // Values are low (0.4) to keep it "Dark".
+  .color(
+      H("<0.4 0 0>"), // Red channel sequence
+      H("<0 0.4 0>"), // Green channel sequence
+      H("<0 0 0.4>")  // Blue channel sequence
+  )
+  // 2. Layer the original white text/lines back on top
+  // .luma(0.5, 0.01) isolates the bright pixels (text) removes the black background
+  .layer(
+      src(s0).luma(0.5, 0.01)
+  )
+  .out()
+
+all(x=>x.fft(4).scope({pos:0,smear:.95}))
